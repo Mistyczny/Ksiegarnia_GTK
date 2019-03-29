@@ -1,0 +1,118 @@
+# depslib dependency file v1.0
+1553765823 source:e:\projekty\sklep_gtk\main.cpp
+	<iostream>
+	<gtk/gtk.h>
+	"LoginWindow.h"
+	<User.h>
+	<memory>
+	<boost/shared_ptr.hpp>
+
+1551346551 e:\projekty\sklep_gtk\include\loginwindow.h
+	<iostream>
+	<gtk/gtk.h>
+	<windows.h>
+	<mysql.h>
+	<string>
+	<sstream>
+	<cstdio>
+	<boost/noncopyable.hpp>
+	<boost/shared_ptr.hpp>
+	<memory>
+	<User.h>
+	"Shop.h"
+	"define_login_window.h"
+	"errors.h"
+
+1553765457 source:e:\projekty\sklep_gtk\src\loginwindow.cpp
+	"LoginWindow.h"
+
+1553766017 e:\projekty\sklep_gtk\include\user.h
+	<iostream>
+	<gtk/gtk.h>
+	<windows.h>
+	<mysql.h>
+	<string>
+	<sstream>
+	<cstdio>
+	<boost/noncopyable.hpp>
+	<memory>
+
+1553765681 source:e:\projekty\sklep_gtk\src\user.cpp
+	"User.h"
+
+1550348984 e:\projekty\sklep_gtk\include\utilities.h
+	<iostream>
+	<stdio.h>
+	<string.h>
+
+1550350249 source:e:\projekty\sklep_gtk\src\utilities.cpp
+	"Utilities.h"
+
+1550405921 e:\projekty\sklep_gtk\include\application.h
+	<iostream>
+	<gtk/gtk.h>
+	<boost/noncopyable.hpp>
+
+1550405514 source:e:\projekty\sklep_gtk\src\application.cpp
+	"Application.h"
+
+1553768835 e:\projekty\sklep_gtk\include\shop.h
+	<iostream>
+	<gtk/gtk.h>
+	<string>
+	<boost/noncopyable.hpp>
+	<boost/shared_ptr.hpp>
+	<boost/lexical_cast.hpp>
+	<fstream>
+	"User.h"
+	"LoginWindow.h"
+	<vector>
+	<stdio.h>
+	<stdlib.h>
+	"koszyk.h"
+	"Payment_application.h"
+
+1553806295 source:e:\projekty\sklep_gtk\src\shop.cpp
+	"Shop.h"
+	"define.h"
+
+1553778343 e:\projekty\sklep_gtk\include\define.h
+
+1550773095 e:\projekty\sklep_gtk\include\define_login_window.h
+
+1552336184 e:\projekty\sklep_gtk\include\koszyk.h
+	<iostream>
+	<vector>
+	<gtk/gtk.h>
+	<gdk/gdk.h>
+	"Ksiazka.h"
+	<map>
+	<thread>
+	"Payment_application.h"
+
+1553778779 source:e:\projekty\sklep_gtk\src\koszyk.cpp
+	"koszyk.h"
+	"define_koszyk.h"
+	"Shop.h"
+
+1553778655 e:\projekty\sklep_gtk\include\define_koszyk.h
+
+1552422723 source:e:\projekty\sklep_gtk\src\ksiazka.cpp
+	"Ksiazka.h"
+	"Shop.h"
+
+1552422669 e:\projekty\sklep_gtk\include\ksiazka.h
+	<iostream>
+	<gtk/gtk.h>
+
+1551346590 e:\projekty\sklep_gtk\include\errors.h
+
+1551901659 e:\projekty\sklep_gtk\include\payment_application.h
+	<iostream>
+	"gtk/gtk.h"
+	"Ksiazka.h"
+	<map>
+
+1551912155 source:e:\projekty\sklep_gtk\src\payment_application.cpp
+	"Payment_application.h"
+

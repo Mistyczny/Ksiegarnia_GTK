@@ -1,0 +1,5 @@
+#define LOGINWINDOW_X 400
+#define LOGINWINDOW_Y 300
+#define BOX_SIZE_X 3
+#define BOX_SIZE_Y 3
+#define BORDER_WIDTH 10
