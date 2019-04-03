@@ -34,9 +34,10 @@ public:
     static void add_book_to_purchases(GtkWidget *target, gpointer arguments);
     static void delete_book_from_purchases(GtkWidget *target,gpointer arguments);
     static void purchase(GtkWidget *target,gpointer arguments);
-    bool check_purchases(Ksiazka*);
+    bool check_purchases(Ksiazka*,int ilosc=1);
     int do_zaplaty;
     std::string add_money(int i);
+    std::string remove_money(int i);
 
     ~Koszyk();
 };

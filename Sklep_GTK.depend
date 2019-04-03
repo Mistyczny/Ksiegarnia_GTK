@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1553765823 source:e:\projekty\sklep_gtk\main.cpp
+1553815885 source:e:\projekty\sklep_gtk\main.cpp
 	<iostream>
 	<gtk/gtk.h>
 	"LoginWindow.h"
@@ -7,7 +7,7 @@
 	<memory>
 	<boost/shared_ptr.hpp>
 
-1551346551 e:\projekty\sklep_gtk\include\loginwindow.h
+1551350151 e:\projekty\sklep_gtk\include\loginwindow.h
 	<iostream>
 	<gtk/gtk.h>
 	<windows.h>
@@ -23,10 +23,10 @@
 	"define_login_window.h"
 	"errors.h"
 
-1553765457 source:e:\projekty\sklep_gtk\src\loginwindow.cpp
+1553769057 source:e:\projekty\sklep_gtk\src\loginwindow.cpp
 	"LoginWindow.h"
 
-1553766017 e:\projekty\sklep_gtk\include\user.h
+1553769617 e:\projekty\sklep_gtk\include\user.h
 	<iostream>
 	<gtk/gtk.h>
 	<windows.h>
@@ -37,7 +37,7 @@
 	<boost/noncopyable.hpp>
 	<memory>
 
-1553765681 source:e:\projekty\sklep_gtk\src\user.cpp
+1553769281 source:e:\projekty\sklep_gtk\src\user.cpp
 	"User.h"
 
 1550348984 e:\projekty\sklep_gtk\include\utilities.h
@@ -56,7 +56,7 @@
 1550405514 source:e:\projekty\sklep_gtk\src\application.cpp
 	"Application.h"
 
-1553768835 e:\projekty\sklep_gtk\include\shop.h
+1554288073 e:\projekty\sklep_gtk\include\shop.h
 	<iostream>
 	<gtk/gtk.h>
 	<string>
@@ -71,16 +71,18 @@
 	<stdlib.h>
 	"koszyk.h"
 	"Payment_application.h"
+	"C_Zakladka_Employee.h"
 
-1553806295 source:e:\projekty\sklep_gtk\src\shop.cpp
+1554287598 source:e:\projekty\sklep_gtk\src\shop.cpp
 	"Shop.h"
 	"define.h"
+	"Informacje_o_Zamowieniu.h"
 
-1553778343 e:\projekty\sklep_gtk\include\define.h
+1554127190 e:\projekty\sklep_gtk\include\define.h
 
-1550773095 e:\projekty\sklep_gtk\include\define_login_window.h
+1550776695 e:\projekty\sklep_gtk\include\define_login_window.h
 
-1552336184 e:\projekty\sklep_gtk\include\koszyk.h
+1554279813 e:\projekty\sklep_gtk\include\koszyk.h
 	<iostream>
 	<vector>
 	<gtk/gtk.h>
@@ -90,29 +92,46 @@
 	<thread>
 	"Payment_application.h"
 
-1553778779 source:e:\projekty\sklep_gtk\src\koszyk.cpp
+1554279927 source:e:\projekty\sklep_gtk\src\koszyk.cpp
 	"koszyk.h"
 	"define_koszyk.h"
 	"Shop.h"
 
-1553778655 e:\projekty\sklep_gtk\include\define_koszyk.h
+1553782255 e:\projekty\sklep_gtk\include\define_koszyk.h
 
-1552422723 source:e:\projekty\sklep_gtk\src\ksiazka.cpp
+1552426323 source:e:\projekty\sklep_gtk\src\ksiazka.cpp
 	"Ksiazka.h"
 	"Shop.h"
 
-1552422669 e:\projekty\sklep_gtk\include\ksiazka.h
+1552426269 e:\projekty\sklep_gtk\include\ksiazka.h
 	<iostream>
 	<gtk/gtk.h>
 
-1551346590 e:\projekty\sklep_gtk\include\errors.h
+1551350190 e:\projekty\sklep_gtk\include\errors.h
 
-1551901659 e:\projekty\sklep_gtk\include\payment_application.h
+1551905259 e:\projekty\sklep_gtk\include\payment_application.h
 	<iostream>
 	"gtk/gtk.h"
 	"Ksiazka.h"
 	<map>
 
-1551912155 source:e:\projekty\sklep_gtk\src\payment_application.cpp
+1551915755 source:e:\projekty\sklep_gtk\src\payment_application.cpp
 	"Payment_application.h"
+
+1554234101 e:\projekty\sklep_gtk\include\informacje_o_zamowieniu.h
+	<iostream>
+	<vector>
+	"mysql.h"
+
+1554231211 source:e:\projekty\sklep_gtk\src\strona_zamowien.cpp
+	"Strona_zamowien.h"
+
+1554231210 e:\projekty\sklep_gtk\include\strona_zamowien.h
+
+1554287825 e:\projekty\sklep_gtk\include\c_zakladka_employee.h
+	"gtk/gtk.h"
+
+1554287936 source:e:\projekty\sklep_gtk\src\c_zakladka_employee.cpp
+	"C_Zakladka_Employee.h"
+	"Shop.h"
 

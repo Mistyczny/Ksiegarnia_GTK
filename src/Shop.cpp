@@ -1,6 +1,6 @@
 #include "Shop.h"
 #include "define.h"
-
+#include "Informacje_o_Zamowieniu.h"
 void Shop::run()
 {
     gtk_widget_show_all(okno_programu);
@@ -52,6 +52,8 @@ void Shop::build()
     this->build_orders_list();
     this->build_menu_tool_bar_for_orders();
     koszyczek = new Koszyk(okno_programu,box_glowny,payment_window);
+    zakladka_employee = new C_Zakladka_Employee(okno_programu,box_glowny);
+    zakladka_employee->build();
 
 
     g_signal_connect(G_OBJECT(okno_programu), "destroy", G_CALLBACK(gtk_main_quit), NULL);
@@ -80,7 +82,7 @@ void Shop::build_casual_widgets()
         Btn_spis_pracownikow = gtk_button_new();
         gtk_button_set_label(GTK_BUTTON(Btn_spis_pracownikow), "Employee");
         gtk_table_attach_defaults(GTK_TABLE(box_glowny), Btn_spis_pracownikow, 7, 8, 0, 1);
-        g_signal_connect(Btn_spis_pracownikow, "clicked", G_CALLBACK(&Shop::log_off), this);
+        g_signal_connect(Btn_spis_pracownikow, "clicked", G_CALLBACK(&C_Zakladka_Employee::run), this);
 
         /// build frame about user
     }
@@ -135,15 +137,11 @@ void Shop::zbuduj_liste_ksiazek()
     scrolled_box_for_info_about_books = gtk_scrolled_window_new(NULL, NULL);
     g_object_ref(G_OBJECT(scrolled_box_for_info_about_books ));
 
-    FrameAboutBooks = gtk_frame_new("About Book");
-    g_object_ref(G_OBJECT(FrameAboutBooks ));
-
     InfoAboutBooks = gtk_label_new("There will be some info");
     gtk_label_set_line_wrap(GTK_LABEL(InfoAboutBooks),TRUE);
     gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolled_box_for_info_about_books),InfoAboutBooks);
 
-    gtk_table_attach_defaults(GTK_TABLE(box_glowny),GTK_WIDGET(scrolled_box_for_info_about_books), 7, 9, 3, 9);
-    gtk_table_attach_defaults(GTK_TABLE(box_glowny), FrameAboutBooks, 7, 10, 3, 9);
+    gtk_table_attach_defaults(GTK_TABLE(box_glowny),GTK_WIDGET(scrolled_box_for_info_about_books), 7, 10, 3, 9);
     gtk_label_set_text(GTK_LABEL(InfoAboutBooks),"Press book twice to show info about it");
 
     Btn_add_info_about_book = gtk_button_new();
@@ -153,7 +151,6 @@ void Shop::zbuduj_liste_ksiazek()
     gtk_table_attach_defaults(GTK_TABLE(box_glowny), Btn_add_info_about_book, 5, 6, 9, 10);
     g_signal_connect(Btn_add_info_about_book, "clicked", G_CALLBACK(&Shop::add_info_about_book), this);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-    GtkTreeIter iter;
     tabela_pokazujaca_liste = gtk_tree_view_new();
     g_signal_connect(tabela_pokazujaca_liste, "row-activated",G_CALLBACK(&Shop::set_text_to_info_label), this);
     gtk_tree_view_columns_autosize(GTK_TREE_VIEW(tabela_pokazujaca_liste));
@@ -331,15 +328,18 @@ void Shop::change_to_orders(GtkWidget *target, gpointer arguments)
     else if(temp->Active_button == temp->Btn_spis_dostepnych_ksiazek)
     {
         gtk_container_remove(GTK_CONTAINER(temp->box_glowny),temp->Btn_add_info_about_book);
-        gtk_container_remove(GTK_CONTAINER(temp->box_glowny),temp->FrameAboutBooks);
         gtk_container_remove(GTK_CONTAINER(temp->box_glowny),temp->scrolled_box_for_info_about_books);
         gtk_container_remove(GTK_CONTAINER(temp->box_glowny),temp->scrolled_box_for_books);
+        gtk_container_remove(GTK_CONTAINER(temp->box_glowny),temp->VBox_wybieranie_sposobu_sortowania_dostepnych_ksiazek);
 
         gtk_table_attach_defaults(GTK_TABLE(temp->box_glowny),temp->scrolled_box_for_orders,3,7,3,9);
         gtk_table_attach_defaults(GTK_TABLE(temp->box_glowny),temp->VBox_wybieranie_sposobu_sortowania_zamowien,3, 4, 2, 3);
-        gtk_table_attach_defaults(GTK_TABLE(temp->box_glowny),temp->SCR_BOX_informacje_o_zamowieniu, 7, 9, 3, 9);
         gtk_widget_show_all(temp->okno_programu);
         temp->Active_button = target;
+    }
+    else if(temp->Active_button == temp->Btn_spis_pracownikow)
+    {
+        std::cout<<"JEST"<<std::endl;
     }
 }
 
@@ -354,12 +354,21 @@ void Shop::change_to_spis_ksiazek(GtkWidget *target, gpointer arguments)
     {
         gtk_container_remove(GTK_CONTAINER(temp->box_glowny),temp->scrolled_box_for_orders);
         gtk_container_remove(GTK_CONTAINER(temp->box_glowny),temp->VBox_wybieranie_sposobu_sortowania_zamowien);
-        gtk_container_remove(GTK_CONTAINER(temp->box_glowny),temp->SCR_BOX_informacje_o_zamowieniu);
 
         gtk_table_attach_defaults(GTK_TABLE(temp->box_glowny),temp->Btn_add_info_about_book,5, 6, 9, 10);
-        gtk_table_attach_defaults(GTK_TABLE(temp->box_glowny),temp->FrameAboutBooks,7, 10, 3, 9);
         gtk_table_attach_defaults(GTK_TABLE(temp->box_glowny),temp->scrolled_box_for_books,3,7,3,9);
-        gtk_table_attach_defaults(GTK_TABLE(temp->box_glowny),temp->scrolled_box_for_info_about_books,7, 9, 3, 9);
+        gtk_table_attach_defaults(GTK_TABLE(temp->box_glowny),temp->scrolled_box_for_info_about_books,7, 10, 3, 9);
+        gtk_table_attach_defaults(GTK_TABLE(temp->box_glowny),temp->VBox_wybieranie_sposobu_sortowania_dostepnych_ksiazek,3, 4, 2, 3);
+        temp->Active_button = target;
+    }
+    else if(temp->Active_button == temp->Btn_spis_pracownikow)
+    {
+        temp->dodaj_widzety_obslugi_tabel();
+        temp->zakladka_employee->remove_employee_widgets();
+        gtk_table_attach_defaults(GTK_TABLE(temp->box_glowny),temp->Btn_add_info_about_book,5, 6, 9, 10);
+        gtk_table_attach_defaults(GTK_TABLE(temp->box_glowny),temp->scrolled_box_for_books,3,7,3,9);
+        gtk_table_attach_defaults(GTK_TABLE(temp->box_glowny),temp->scrolled_box_for_info_about_books,7, 10, 3, 9);
+        gtk_table_attach_defaults(GTK_TABLE(temp->box_glowny),temp->VBox_wybieranie_sposobu_sortowania_dostepnych_ksiazek,3, 4, 2, 3);
         temp->Active_button = target;
     }
 }
@@ -371,30 +380,40 @@ void Shop::change_to_spis_ksiazek(GtkWidget *target, gpointer arguments)
 void Shop::sortowanie_zamowien(GtkWidget* target,gpointer arguments)
 {
     Shop* temp = static_cast<Shop*>(arguments);
-    GtkWidget* object = GTK_WIDGET(target);
     std::string text = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(target));
     std::string question_to_database;
 
     if(text == "ID zamowienia -")
     {
-        question_to_database = "SELECT * FROM paczki ORDER BY id_paczki DESC; ";
+        question_to_database = "SELECT DISTINCT zamowienia.ID_Zamówienia,klienci.Imie,klienci.Nazwisko,SUM(książka.cena*zamowienia.ilosc) OVER(PARTITION BY zamowienia.ID_Zamówienia),zamowienia.Czas_Dostawy,zamowienia.Odebrana FROM((zamowienia INNER JOIN książka ON zamowienia.ID_ksiązki=książka.ID_ksiązki) INNER JOIN klienci ON zamowienia.ID_Klienta=klienci.ID_Klienta) ORDER BY zamowienia.ID_Zamówienia;";
     }
-    if(text == "ID zamowienia +")
+    else if(text == "ID zamowienia +")
     {
-        question_to_database = "SELECT * FROM paczki ORDER BY id_paczki; ";
+        question_to_database = "SELECT DISTINCT zamowienia.ID_Zamówienia,klienci.Imie,klienci.Nazwisko,SUM(książka.cena*zamowienia.ilosc) OVER(PARTITION BY zamowienia.ID_Zamówienia),zamowienia.Czas_Dostawy,zamowienia.Odebrana FROM((zamowienia INNER JOIN książka ON zamowienia.ID_ksiązki=książka.ID_ksiązki) INNER JOIN klienci ON zamowienia.ID_Klienta=klienci.ID_Klienta) ORDER BY zamowienia.ID_Zamówienia DESC;";
     }
-    if(text == "ID zamowienia -")
+    else if(text == "Imie A-Z")
     {
-        question_to_database = "SELECT * FROM paczki ORDER BY i DESC; ";
+        question_to_database = "SELECT DISTINCT zamowienia.ID_Zamówienia,klienci.Imie,klienci.Nazwisko,SUM(książka.cena*zamowienia.ilosc) OVER(PARTITION BY zamowienia.ID_Zamówienia),zamowienia.Czas_Dostawy,zamowienia.Odebrana FROM((zamowienia INNER JOIN książka ON zamowienia.ID_ksiązki=książka.ID_ksiązki) INNER JOIN klienci ON zamowienia.ID_Klienta=klienci.ID_Klienta) ORDER BY klienci.Imie;";
     }
-    if(text == "ID zamowienia -")
+    else if(text == "Imie Z-A")
     {
-        question_to_database = "SELECT * FROM paczki ORDER BY id_paczki DESC; ";
+        question_to_database = "SELECT DISTINCT zamowienia.ID_Zamówienia,klienci.Imie,klienci.Nazwisko,SUM(książka.cena*zamowienia.ilosc) OVER(PARTITION BY zamowienia.ID_Zamówienia),zamowienia.Czas_Dostawy,zamowienia.Odebrana FROM((zamowienia INNER JOIN książka ON zamowienia.ID_ksiązki=książka.ID_ksiązki) INNER JOIN klienci ON zamowienia.ID_Klienta=klienci.ID_Klienta) ORDER BY zamowienia.ID_Zamówienia DESC;";
     }
+    else if(text == "Nazwisko A-Z")
+    {
+        question_to_database = "SELECT DISTINCT zamowienia.ID_Zamówienia,klienci.Imie,klienci.Nazwisko,SUM(książka.cena*zamowienia.ilosc) OVER(PARTITION BY zamowienia.ID_Zamówienia),zamowienia.Czas_Dostawy,zamowienia.Odebrana FROM((zamowienia INNER JOIN książka ON zamowienia.ID_ksiązki=książka.ID_ksiązki) INNER JOIN klienci ON zamowienia.ID_Klienta=klienci.ID_Klienta) ORDER BY klienci.Nazwisko;";
+    }
+    else if(text == "Nazwisko Z-A")
+    {
+        question_to_database = "SELECT DISTINCT zamowienia.ID_Zamówienia,klienci.Imie,klienci.Nazwisko,SUM(książka.cena*zamowienia.ilosc) OVER(PARTITION BY zamowienia.ID_Zamówienia),zamowienia.Czas_Dostawy,zamowienia.Odebrana FROM((zamowienia INNER JOIN książka ON zamowienia.ID_ksiązki=książka.ID_ksiązki) INNER JOIN klienci ON zamowienia.ID_Klienta=klienci.ID_Klienta) ORDER BY klienci.Nazwisko DESC;";
+    }
+    else return;
 
     MYSQL *connect = mysql_init(0);
+    mysql_options(connect, MYSQL_SET_CHARSET_NAME, "utf8");
+    mysql_options(connect, MYSQL_INIT_COMMAND, "SET NAMES utf8");
 
-    if((connect = mysql_real_connect(connect, "127.0.0.1","root","","ksiegarnia",0,NULL,0)) == NULL)
+    if((connect = mysql_real_connect(connect, "127.0.0.1","root","","sklep_ksiazek",0,NULL,0)) == NULL)
     {
         std::cout<<"Nie udalo sie polaczyc z baza danych"<<std::endl;
         temp->error = gtk_message_dialog_new(GTK_WINDOW(temp->okno_programu),GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, "Error");
@@ -414,14 +433,13 @@ void Shop::sortowanie_zamowien(GtkWidget* target,gpointer arguments)
 
         while((row = mysql_fetch_row(idZapytania)) != NULL)
             {
-                std::string zmienna = row[3];
+                char* zmienna = row[4];
                 gtk_list_store_append(temp->magazyn_do_zamowien,&iter);
-                gtk_list_store_set(temp->magazyn_do_zamowien, &iter,ID_PACZKI,(gint) atoi(row[0]),
-                IMIE_ODBIORCY, row[1], NAZWISKO_ODBIORCY,row[2], CENA_PACZKI,zmienna.c_str(), ODEBRANA,(gboolean) atoi(row[4]), - 1 );
+                gtk_list_store_set(temp->magazyn_do_zamowien, &iter,ID_PACZKI,(gint) atoi(row[0]),IMIE_ODBIORCY,row[1],NAZWISKO_ODBIORCY,row[2],
+                CENA,(gint) atoi(row[3]), DATA,zmienna,ODEBRANA,(gboolean) atoi(row[5]), - 1 );
             }
         mysql_free_result(idZapytania);
     }
-    g_free(object);
     mysql_close(connect);
 }
 /***********************************************************************************
@@ -432,7 +450,6 @@ void Shop::sortowanie_zamowien(GtkWidget* target,gpointer arguments)
 void Shop::sortowanie_dostepnych_ksiazek(GtkWidget *widget, gpointer arguments)
 {
     Shop* temp = static_cast<Shop*>(arguments);
-    GtkWidget* object = GTK_WIDGET(widget);
     MYSQL *connect = mysql_init(0);
     mysql_options(connect, MYSQL_SET_CHARSET_NAME, "utf8");
     mysql_options(connect, MYSQL_INIT_COMMAND, "SET NAMES utf8");
@@ -498,7 +515,6 @@ void Shop::sortowanie_dostepnych_ksiazek(GtkWidget *widget, gpointer arguments)
         }
         mysql_free_result(idZapytania);
     }
-g_free(object);
 mysql_close(connect);
 }
 
@@ -554,7 +570,7 @@ void Shop::szukanie_ksiazki(GtkWidget* target,gpointer arguments)
         if(temp->Active_button == temp->Btn_zamowienie)
         {
             gtk_list_store_clear(temp->magazyn_do_zamowien);
-            std::string question_to_database = "SELECT zamowienia.ID_Zamówienia,książka.ID_ksiązki, książka.Nazwa_książki,klienci.Imie,klienci.Nazwisko,książka.cena,zamowienia.ilosc,zamowienia.Odebrana FROM((zamowienia INNER JOIN książka ON zamowienia.ID_ksiązki=książka.ID_ksiązki) INNER JOIN klienci ON zamowienia.ID_Klienta=klienci.ID_Klienta) WHERE klienci.Imie LIKE '%"+question_about+"%';";
+            std::string question_to_database = "SELECT DISTINCT zamowienia.ID_Zamówienia,klienci.Imie,klienci.Nazwisko,SUM(książka.cena*zamowienia.ilosc) OVER(PARTITION BY zamowienia.ID_Zamówienia),zamowienia.Czas_Dostawy,zamowienia.Odebrana FROM((zamowienia INNER JOIN książka ON zamowienia.ID_ksiązki=książka.ID_ksiązki) INNER JOIN klienci ON zamowienia.ID_Klienta=klienci.ID_Klienta) WHERE klienci.Imie LIKE '%"+question_about+"%';";
 
             if(mysql_query(connect,question_to_database.c_str()))
             {
@@ -572,9 +588,10 @@ void Shop::szukanie_ksiazki(GtkWidget* target,gpointer arguments)
                 GtkTreeIter iter;
                 while((row = mysql_fetch_row(idZapytania)) != NULL)
                 {
-                        gtk_list_store_append(temp->magazyn_do_zamowien,&iter);
-                        gtk_list_store_set(temp->magazyn_do_zamowien, &iter,ID_PACZKI,(gint) atoi(row[0]),ID_KSIAZKI_W_PACZCE,(gint) atoi(row[1]),NAZWA_KSIAZKI_W_PACZCE,row[2],
-                        IMIE_ODBIORCY, row[3], NAZWISKO_ODBIORCY,row[4], CENA_PACZKI,(gint) atoi(row[5]),ILOSC_W_PACZCE,(gint) atoi(row[6]), ODEBRANA,(gboolean) atoi(row[7]), - 1 );
+                    char* zmienna = row[4];
+                    gtk_list_store_append(temp->magazyn_do_zamowien,&iter);
+                    gtk_list_store_set(temp->magazyn_do_zamowien, &iter,ID_PACZKI,(gint) atoi(row[0]),IMIE_ODBIORCY,row[1],NAZWISKO_ODBIORCY,row[2],
+                    CENA,(gint) atoi(row[3]), DATA,zmienna,ODEBRANA,(gboolean) atoi(row[5]), - 1 );
                 }
                 mysql_free_result(idZapytania);
             }
@@ -609,7 +626,7 @@ void Shop::set_text_to_info_label(GtkTreeView * treeview, GtkTreePath * path, Gt
         mysql_options(connect, MYSQL_SET_CHARSET_NAME, "utf8");
         mysql_options(connect, MYSQL_INIT_COMMAND, "SET NAMES utf8");
 
-        if((connect = mysql_real_connect(connect, "127.0.0.1","root","","ksiegarnia",0,NULL,0)) == NULL)
+        if((connect = mysql_real_connect(connect, "127.0.0.1","root","","sklep_ksiazek",0,NULL,0)) == NULL)
         {
             std::cout<<"Nie udalo sie polaczyc z baza danych"<<std::endl;
             temp->error = gtk_message_dialog_new(GTK_WINDOW(temp->okno_programu),GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, "Error");
@@ -620,7 +637,7 @@ void Shop::set_text_to_info_label(GtkTreeView * treeview, GtkTreePath * path, Gt
         }
         else
         {
-        std::string sentence ="SELECT opis FROM opisy_ksiazek WHERE id_ksiazki ='"+std::to_string(holds_pressed_book_id)+"';";
+        std::string sentence ="SELECT opis FROM książka WHERE książka.ID_Ksiązki ='"+std::to_string(holds_pressed_book_id)+"';";
 
             if(mysql_query(connect,sentence.c_str()))
             {
@@ -684,6 +701,14 @@ void Shop::add_info_about_book(GtkWidget* target,gpointer arguments)
             case GTK_RESPONSE_ACCEPT:
             {
                 gtk_label_set_text(GTK_LABEL(temp->InfoAboutBooks),gtk_entry_get_text(GTK_ENTRY(entry)));
+                MYSQL *connect = mysql_init(0);
+                mysql_options(connect, MYSQL_SET_CHARSET_NAME, "utf8");
+                mysql_options(connect, MYSQL_INIT_COMMAND, "SET NAMES utf8");
+                connect = mysql_real_connect(connect, "127.0.0.1","root","","sklep_ksiazek",0,NULL,0);
+                std::ostringstream sentence;
+                sentence<<"UPDATE książka SET opis='"<<gtk_label_get_text(GTK_LABEL(temp->InfoAboutBooks))<<"' WHERE książka.ID_ksiązki='"<<std::to_string(id_wybranej_ksiazki)<<"'";
+                std::string zdanie = sentence.str();
+                if(mysql_query(connect,zdanie.c_str())) std::cout<<"Nie udalo sie"<<std::endl;
                 break;
             }
 
@@ -703,20 +728,12 @@ delete temp;
 
 void Shop::build_orders_list()
 {
-    L_informacje_o_zamowieniu = gtk_label_new("Informacje o zamówieniu");
-    gtk_label_set_line_wrap(GTK_LABEL(L_informacje_o_zamowieniu),TRUE);
-
-    SCR_BOX_informacje_o_zamowieniu = gtk_scrolled_window_new(NULL, NULL);
-    gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(SCR_BOX_informacje_o_zamowieniu),L_informacje_o_zamowieniu);
-    g_object_ref(G_OBJECT(SCR_BOX_informacje_o_zamowieniu));
-
     scrolled_box_for_orders = gtk_scrolled_window_new(NULL, NULL);
-    GtkTreeIter iter;
     tabela_pokazujaca_zamowienia = gtk_tree_view_new();
     g_signal_connect(tabela_pokazujaca_zamowienia, "row-activated",G_CALLBACK(&Shop::pobierz_informacje_o_zamowieniu), this);
     gtk_tree_view_columns_autosize(GTK_TREE_VIEW(tabela_pokazujaca_zamowienia));
 
-    magazyn_do_zamowien = gtk_list_store_new(ILOSC_KOLUMN_PACZEK,G_TYPE_INT,G_TYPE_INT,G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING,G_TYPE_INT,G_TYPE_INT,G_TYPE_BOOLEAN, G_TYPE_INT);
+    magazyn_do_zamowien = gtk_list_store_new(ILOSC_KOLUMN_PACZEK,G_TYPE_INT,G_TYPE_STRING, G_TYPE_STRING,G_TYPE_INT,G_TYPE_STRING,G_TYPE_BOOLEAN, G_TYPE_INT);
     gtk_tree_view_set_model(GTK_TREE_VIEW(tabela_pokazujaca_zamowienia), GTK_TREE_MODEL(magazyn_do_zamowien));
     gtk_tree_view_set_headers_clickable(GTK_TREE_VIEW(tabela_pokazujaca_zamowienia),TRUE);
 
@@ -738,7 +755,7 @@ void Shop::build_orders_list()
     }
     else
     {
-        std::string sentence = "SELECT zamowienia.ID_Zamówienia,książka.ID_ksiązki, książka.Nazwa_książki,klienci.Imie,klienci.Nazwisko,książka.cena,zamowienia.ilosc,zamowienia.Odebrana FROM((zamowienia INNER JOIN książka ON zamowienia.ID_ksiązki=książka.ID_ksiązki) INNER JOIN klienci ON zamowienia.ID_Klienta=klienci.ID_Klienta)";
+        std::string sentence = "SELECT DISTINCT zamowienia.ID_Zamówienia,klienci.Imie,klienci.Nazwisko,SUM(książka.cena*zamowienia.ilosc) OVER(PARTITION BY zamowienia.ID_Zamówienia),zamowienia.Czas_Dostawy,zamowienia.Odebrana FROM((zamowienia INNER JOIN książka ON zamowienia.ID_ksiązki=książka.ID_ksiązki) INNER JOIN klienci ON zamowienia.ID_Klienta=klienci.ID_Klienta)";
         if(mysql_query(connect,sentence.c_str()))
         {
             std::cout<<"Nie udalo sie polaczyc z baza danych"<<std::endl;
@@ -755,14 +772,14 @@ void Shop::build_orders_list()
             GtkTreeIter iter;
 
             zaznaczenie_elementu_listy[1] = gtk_tree_view_get_selection(GTK_TREE_VIEW(tabela_pokazujaca_zamowienia));
-
             while((row = mysql_fetch_row(idZapytania)) != NULL)
             {
+                char* zmienna = row[4];
                 gtk_list_store_append(magazyn_do_zamowien,&iter);
-                gtk_list_store_set(magazyn_do_zamowien, &iter,ID_PACZKI,(gint) atoi(row[0]),ID_KSIAZKI_W_PACZCE,(gint) atoi(row[1]),NAZWA_KSIAZKI_W_PACZCE,row[2],
-                IMIE_ODBIORCY, row[3], NAZWISKO_ODBIORCY,row[4], CENA_PACZKI,(gint) atoi(row[5]),ILOSC_W_PACZCE,(gint) atoi(row[6]), ODEBRANA,(gboolean) atoi(row[7]), - 1 );
+                gtk_list_store_set(magazyn_do_zamowien, &iter,ID_PACZKI,(gint) atoi(row[0]),IMIE_ODBIORCY,row[1],NAZWISKO_ODBIORCY,row[2],
+                CENA,(gint) atoi(row[3]), DATA,zmienna,ODEBRANA,(gboolean) atoi(row[5]), - 1 );
             }
-            for(int  i = 0; i <= 7; i++ )
+            for(int  i = 0; i <= 5; i++ )
             {
                 komorka = gtk_cell_renderer_text_new();
                 gtk_cell_renderer_set_alignment(komorka,0.5,0.5);
@@ -785,13 +802,13 @@ void Shop::pobierz_informacje_o_zamowieniu(GtkTreeView * treeview, GtkTreePath *
     if(gtk_tree_model_get_iter( model, & iter, path ))
     {
         int trzyma_id_paczki;
-        gtk_tree_model_get( model, & iter, ID_KSIAZKI,&trzyma_id_paczki, - 1 );
+        gtk_tree_model_get( model, & iter, ID_PACZKI,&trzyma_id_paczki, - 1 );
 
         MYSQL *connect = mysql_init(0);
         mysql_options(connect, MYSQL_SET_CHARSET_NAME, "utf8");
         mysql_options(connect, MYSQL_INIT_COMMAND, "SET NAMES utf8");
 
-        if((connect = mysql_real_connect(connect, "127.0.0.1","root","","ksiegarnia",0,NULL,0)) == NULL)
+        if((connect = mysql_real_connect(connect, "127.0.0.1","root","","sklep_ksiazek",0,NULL,0)) == NULL)
         {
             std::cout<<"Nie udalo sie polaczyc z baza danych"<<std::endl;
             temp->error = gtk_message_dialog_new(GTK_WINDOW(temp->okno_programu),GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, "Error");
@@ -802,7 +819,7 @@ void Shop::pobierz_informacje_o_zamowieniu(GtkTreeView * treeview, GtkTreePath *
         }
         else
         {
-        std::string sentence ="SELECT * FROM paczki WHERE id_paczki = '"+std::to_string(trzyma_id_paczki)+"';";
+        std::string sentence ="SELECT klienci.Imie,klienci.Nazwisko,książka.Nazwa_książki,książka.cena,zamowienia.ilosc FROM((zamowienia INNER JOIN książka ON zamowienia.ID_ksiązki=książka.ID_ksiązki) INNER JOIN klienci ON zamowienia.ID_Klienta=klienci.ID_Klienta) WHERE ID_Zamówienia ='"+std::to_string(trzyma_id_paczki)+"';";
 
             if(mysql_query(connect,sentence.c_str()))
             {
@@ -815,16 +832,34 @@ void Shop::pobierz_informacje_o_zamowieniu(GtkTreeView * treeview, GtkTreePath *
             }
             else
             {
+
                 MYSQL_RES* idZapytania = mysql_store_result(connect);
                 MYSQL_ROW row;
+
+                Str_informacje_o_zamowieniu informacje;
+
                 if((row = mysql_fetch_row(idZapytania))!=NULL)
                 {
-                    std::string prepare_sentence = row[0];
-                    gtk_label_set_text(GTK_LABEL(temp->L_informacje_o_zamowieniu),prepare_sentence.c_str());
+                    informacje.imie_i_nazwisko = row[0];
+                    informacje.imie_i_nazwisko +=' ';
+                    informacje.imie_i_nazwisko +=row[1];
+                    do{
+                    informacje.zamowione_ksiazki.push_back(row[2]);
+                    informacje.ilosc_ksiazki.push_back(row[4]);
+                    informacje.ceny_ksiazek.push_back(row[3]);
+                    }
+                    while((row = mysql_fetch_row(idZapytania)) != NULL);
+                    informacje.prepare();
+
+                    temp->error = gtk_message_dialog_new(GTK_WINDOW(temp->okno_programu),GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, informacje.gotowe_zdanie.c_str());
+                    gtk_window_set_title(GTK_WINDOW(temp->error), "INFORMACJA O ZAMOWIENIU");
+                    gtk_dialog_run(GTK_DIALOG(temp->error));
+                    gtk_widget_destroy(temp->error);
+                    return;
                 }
                 else
                 {
-                    gtk_label_set_text(GTK_LABEL(temp->L_informacje_o_zamowieniu),"Brak informacji o tej książce");
+                    std::cout<<"LALA"<<std::endl;
                 }
                 mysql_free_result(idZapytania);
             }
@@ -847,4 +882,30 @@ GtkWidget* Shop::get_BtnDostepnychKsiazek()
 GtkWidget* Shop::get_BtnZamowien()
 {
     return this->Btn_zamowienie;
+}
+GtkWidget* Shop::get_BtnPracownikow()
+{
+    return this->Btn_spis_pracownikow;
+}
+void Shop::usun_widzety_dostepnych_ksiazek()
+{
+    gtk_container_remove(GTK_CONTAINER(box_glowny),Btn_add_info_about_book);
+    gtk_container_remove(GTK_CONTAINER(box_glowny),scrolled_box_for_info_about_books);
+    gtk_container_remove(GTK_CONTAINER(box_glowny),scrolled_box_for_books);
+    gtk_container_remove(GTK_CONTAINER(box_glowny),VBox_wybieranie_sposobu_sortowania_dostepnych_ksiazek);
+    gtk_container_remove(GTK_CONTAINER(box_glowny),TextBoxSearching);
+    gtk_container_remove(GTK_CONTAINER(box_glowny),Btn_searching);
+    gtk_container_remove(GTK_CONTAINER(box_glowny),Btn_dodaj_do_koszyka);
+}
+
+void Shop::set_ActiveButton(GtkWidget* button)
+{
+    this->Active_button = button;
+}
+
+void Shop::dodaj_widzety_obslugi_tabel()
+{
+    gtk_table_attach_defaults (GTK_TABLE(box_glowny), TextBoxSearching, 4, 5, 2, 3);
+    gtk_table_attach_defaults (GTK_TABLE(box_glowny), Btn_searching, 5, 7, 2, 3);
+    gtk_table_attach_defaults(GTK_TABLE(box_glowny), Btn_dodaj_do_koszyka, 4, 5, 9, 10);
 }

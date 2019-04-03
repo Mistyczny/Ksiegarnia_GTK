@@ -12,12 +12,10 @@ enum ksiazki
 enum paczki
 {
     ID_PACZKI=0,
-    ID_KSIAZKI_W_PACZCE,
-    NAZWA_KSIAZKI_W_PACZCE,
     IMIE_ODBIORCY,
     NAZWISKO_ODBIORCY,
     CENA_PACZKI,
-    ILOSC_W_PACZCE,
+    DATA,
     ODEBRANA,
     ILOSC_KOLUMN_PACZEK
 };
@@ -41,12 +39,10 @@ const gchar* nazwy_kolumn[5] = {
 
 const gchar* nazwy_kolumn_paczek[8] = {
     "Id zamowienia",
-    "ID Ksiazki",
-    "Nazwa Książki",
     "Imie",
     "Nazwisko",
     "Cena",
-    "ilosc",
+    "Przewidywany odbior",
     "Odebrana"
 };
 

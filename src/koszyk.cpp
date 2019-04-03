@@ -1,7 +1,6 @@
 #include "koszyk.h"
 #include "define_koszyk.h"
 #include "Shop.h"
-
 Koszyk::Koszyk(GtkWidget *window_,GtkWidget *box_,GtkWidget* pay_app) :     window(window_),
                                                                             box(box_),
                                                                             pay_app_window(pay_app)
@@ -115,50 +114,61 @@ void Koszyk::add_book_to_purchases(GtkWidget *target, gpointer arguments)
     }
     else if(temp->get_active_button()==temp->get_BtnZamowien())
     {
-      if( gtk_tree_selection_get_selected( temp->get_selected(1), &model, & iter ) )
-        {
-            gint *id_ksiazki;
-            gchar * nazwa;
-            gint *cena;
-            gtk_tree_model_get(model, & iter,ID_KSIAZKI_W_PACZCE,&id_ksiazki, NAZWA_KSIAZKI_W_PACZCE, & nazwa,CENA_PACZKI,&cena,- 1 );
-            gtk_label_set_text(GTK_LABEL(temp->get_koszyczek()->title),temp->get_koszyczek()->add_money(GPOINTER_TO_INT(cena)).c_str());
+      if(gtk_tree_selection_get_selected(temp->get_selected(1), &model, & iter))
+      {
+            gint* id_paczki;
+            gtk_tree_model_get(model,&iter,ID_PACZKI,&id_paczki,-1);
 
+            MYSQL *connect = mysql_init(0);
+            mysql_options(connect, MYSQL_SET_CHARSET_NAME, "utf8");
+            mysql_options(connect, MYSQL_INIT_COMMAND, "SET NAMES utf8");
+            connect = mysql_real_connect(connect, "127.0.0.1","root","","sklep_ksiazek",0,NULL,0);
+            std::string sentence ="SELECT książka.ID_Ksiązki,książka.Nazwa_książki,książka.cena*zamowienia.ilosc,zamowienia.ilosc FROM((zamowienia INNER JOIN książka ON zamowienia.ID_ksiązki=książka.ID_ksiązki) INNER JOIN klienci ON zamowienia.ID_Klienta=klienci.ID_Klienta) WHERE ID_Zamówienia ='"+std::to_string(GPOINTER_TO_INT(id_paczki))+"';";
+            mysql_query(connect,sentence.c_str());
 
-            std::ostringstream name;
-            name<<nazwa;
-            std::string named = name.str();
-
-            Ksiazka *ks = new Ksiazka(GPOINTER_TO_INT(id_ksiazki),named,"autor",GPOINTER_TO_INT(cena),"miekka");
-
-            if(temp->get_koszyczek()->check_purchases(ks)==false)
+            MYSQL_RES* idZapytania = mysql_store_result(connect);
+            MYSQL_ROW row;
+            while((row = mysql_fetch_row(idZapytania)) != NULL)
             {
-                temp->get_koszyczek()->zbior[ks] = 1;
-                gtk_list_store_append(temp->get_koszyczek()->storage_of_shopping,&iter);
-                gtk_list_store_set(temp->get_koszyczek()->storage_of_shopping, &iter,ID_KSIAZKI_KOSZYK,id_ksiazki,
-                NAZWA_KSIAZKI_KOSZYK, nazwa,CENA_KOSZYK, cena, ILOSC_KOSZYK,1, - 1 );
-            }
-            else
-            {
-                gtk_list_store_clear(temp->get_koszyczek()->storage_of_shopping);
-                for(const auto &pair : temp->get_koszyczek()->zbior)
+                gtk_label_set_text(GTK_LABEL(temp->get_koszyczek()->title),temp->get_koszyczek()->add_money((gint) atoi(row[2])).c_str());
+
+                int id_ksiazki = atoi(row[0]);
+                std::string nazwa_ksiazki = row[1];
+                int ilosc = atoi(row[3]);
+                int cena = atoi(row[2])/ilosc;
+
+                Ksiazka *ks = new Ksiazka(id_ksiazki,nazwa_ksiazki,"autor",cena,"miekka");
+
+                if(temp->get_koszyczek()->check_purchases(ks,ilosc)==false)
                 {
-                    std::string nameee = pair.first->get_nazwaKsiazki();
+                    temp->get_koszyczek()->zbior[ks] = ilosc;
                     gtk_list_store_append(temp->get_koszyczek()->storage_of_shopping,&iter);
-                    gtk_list_store_set(temp->get_koszyczek()->storage_of_shopping, &iter,ID_KSIAZKI_KOSZYK,pair.first->get_idKsiazki(),
-                    NAZWA_KSIAZKI_KOSZYK, nameee.c_str(),CENA_KOSZYK, pair.first->get_cenaKsiazki(), ILOSC_KOSZYK,pair.second, - 1 );
+                    gtk_list_store_set(temp->get_koszyczek()->storage_of_shopping, &iter,ID_KSIAZKI_KOSZYK,id_ksiazki,
+                    NAZWA_KSIAZKI_KOSZYK,nazwa_ksiazki.c_str(),CENA_KOSZYK, cena, ILOSC_KOSZYK,ilosc, - 1 );
+                }
+                else
+                {
+                    gtk_list_store_clear(temp->get_koszyczek()->storage_of_shopping);
+                    for(const auto &pair : temp->get_koszyczek()->zbior)
+                    {
+                        std::string nameee = pair.first->get_nazwaKsiazki();
+                        gtk_list_store_append(temp->get_koszyczek()->storage_of_shopping,&iter);
+                        gtk_list_store_set(temp->get_koszyczek()->storage_of_shopping, &iter,ID_KSIAZKI_KOSZYK,pair.first->get_idKsiazki(),
+                        NAZWA_KSIAZKI_KOSZYK, nameee.c_str(),CENA_KOSZYK, pair.first->get_cenaKsiazki(), ILOSC_KOSZYK,pair.second, - 1 );
+                    }
                 }
             }
         }
     }
 }
 
-bool Koszyk::check_purchases(Ksiazka* temp)
+bool Koszyk::check_purchases(Ksiazka* temp,int ilosc)
 {
     for(const auto &pair : zbior)
     {
         if(pair.first->get_idKsiazki() == temp->get_idKsiazki())
         {
-            zbior[pair.first]++;
+            zbior[pair.first]+=ilosc;
             return true;
         }
     }
@@ -175,7 +185,9 @@ void Koszyk::delete_book_from_purchases(GtkWidget *target,gpointer arguments)
     {
 
         gint *ilosc;
-        gtk_tree_model_get(model, & iter,ILOSC_KOSZYK,&ilosc,- 1 );
+        gint *cena;
+        gtk_tree_model_get(model, & iter,CENA_KOSZYK,&cena,ILOSC_KOSZYK,&ilosc,- 1 );
+        gtk_label_set_text(GTK_LABEL(temp->title),temp->remove_money(GPOINTER_TO_INT(cena)).c_str());
         if(GPOINTER_TO_INT(ilosc)-1!=0)
         {
             gtk_list_store_set(temp->storage_of_shopping,&iter,ILOSC_KOSZYK,GPOINTER_TO_INT(ilosc)-1,-1);
@@ -204,6 +216,15 @@ void Koszyk::purchase(GtkWidget *target,gpointer arguments)
 std::string Koszyk::add_money(int i)
 {
     do_zaplaty+=i;
+    std::ostringstream pay;
+    pay<<"To Pay: "<<do_zaplaty;
+    std::string to_pay = pay.str();
+return to_pay;
+}
+
+std::string Koszyk::remove_money(int i)
+{
+    do_zaplaty-=i;
     std::ostringstream pay;
     pay<<"To Pay: "<<do_zaplaty;
     std::string to_pay = pay.str();

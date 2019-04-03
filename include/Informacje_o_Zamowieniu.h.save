@@ -1,0 +1,26 @@
+#ifndef INFORMACJE_O_ZAMOWIENIU_H
+#define INFORMACJE_O_ZAMOWIENIU_H
+#include <iostream>
+#include <vector>
+#include "mysql.h"
+
+struct Str_informacje_o_zamowieniu
+{
+    std::string imie_i_nazwisko;
+    std::vector<std::string> zamowione_ksiazki;
+    std::vector<std::string> ceny_ksiazek;
+    std::string gotowe_zdanie;
+    void prepare();
+};
+
+void Str_informacje_o_zamowieniu::prepare()
+{
+    gotowe_zdanie = imie_i_nazwisko+'\n';
+    for(std::vector<std::string>::iterator it=zamowione_ksiazki.begin();it!=zamowione_ksiazki.end();it++)
+    {
+        gotowe_zdanie.resize(got)
+        gotowe_zdanie+=*it;
+    }
+}
+
+#endif // INFORMACJE_O_ZAMOWIENIU_H

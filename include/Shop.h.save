@@ -99,15 +99,13 @@ public:
     GtkWidget* get_active_button();
     GtkWidget* get_BtnDostepnychKsiazek();
     GtkWidget* get_BtnZamowien();
-    GtkWidget* get_BtnPracownikow();
-    void set_ActiveButton(GtkWidget*);
+    void set_ActiveButton
     /// metody glowne
     Shop(boost::shared_ptr<User>&);
     virtual ~Shop();
     void build();
     void run();
     void usun_widzety_dostepnych_ksiazek();
-    void dodaj_widzety_obslugi_tabel();
 };
 
 #endif // SHOP_H
