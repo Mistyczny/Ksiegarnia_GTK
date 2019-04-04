@@ -1,6 +1,5 @@
 #include "C_Zakladka_Employee.h"
 #include "Shop.h"
-#include "Baza_danych.h"
 
 enum magazyn_prac
 {
@@ -182,10 +181,10 @@ void C_Zakladka_Employee::wypelnianie_rozpiski(GtkWidget *target, gpointer argum
 {
     C_Zakladka_Employee* temp = static_cast<C_Zakladka_Employee*>(arguments);
 
-    guint year;
-    guint month;
-    guint day;
-    gtk_calendar_get_date(GTK_CALENDAR(target),&year,&month,&day);
+    guint* year;
+    guint* month;
+    guint* day;
+    gtk_calendar_get_date(GTK_CALENDAR(temp->kalendarz),year,month,day);
+    std::cout<<POINTER_TO
 
-    Baza_danych baza;
 }

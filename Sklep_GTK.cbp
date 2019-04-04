@@ -41,6 +41,7 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="include/C_Zakladka_Employee.h" />
 		<Unit filename="include/Errors.h" />
 		<Unit filename="include/Informacje_o_Zamowieniu.h" />
 		<Unit filename="include/Ksiazka.h" />
@@ -55,6 +56,7 @@
 		<Unit filename="include/define_login_window.h" />
 		<Unit filename="include/koszyk.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/C_Zakladka_Employee.cpp" />
 		<Unit filename="src/Ksiazka.cpp" />
 		<Unit filename="src/LoginWindow.cpp" />
 		<Unit filename="src/Payment_application.cpp" />

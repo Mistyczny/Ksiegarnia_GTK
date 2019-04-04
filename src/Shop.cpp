@@ -34,9 +34,9 @@ void Shop::build()
     /// build window
     okno_programu = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_position(GTK_WINDOW(okno_programu), GTK_WIN_POS_CENTER);
-    gtk_widget_set_size_request(okno_programu, 900, 700);
+    gtk_window_fullscreen(GTK_WINDOW(okno_programu));
     gtk_window_set_resizable (GTK_WINDOW(okno_programu), FALSE);
-    gtk_window_set_title(GTK_WINDOW(okno_programu), "AutoMoto");
+    gtk_window_set_title(GTK_WINDOW(okno_programu), "Ksiegarnia_GTK");
 
     sposoby_sortowania = new GtkWidget*[8];
     zaznaczenie_elementu_listy = new GtkTreeSelection*[2];

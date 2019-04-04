@@ -73,7 +73,7 @@
 	"Payment_application.h"
 	"C_Zakladka_Employee.h"
 
-1554287598 source:e:\projekty\sklep_gtk\src\shop.cpp
+1554372704 source:e:\projekty\sklep_gtk\src\shop.cpp
 	"Shop.h"
 	"define.h"
 	"Informacje_o_Zamowieniu.h"
@@ -128,10 +128,17 @@
 
 1554231210 e:\projekty\sklep_gtk\include\strona_zamowien.h
 
-1554287825 e:\projekty\sklep_gtk\include\c_zakladka_employee.h
+1554386232 e:\projekty\sklep_gtk\include\c_zakladka_employee.h
 	"gtk/gtk.h"
 
-1554287936 source:e:\projekty\sklep_gtk\src\c_zakladka_employee.cpp
+1554400004 source:e:\projekty\sklep_gtk\src\c_zakladka_employee.cpp
 	"C_Zakladka_Employee.h"
 	"Shop.h"
+	"Baza_danych.h"
+
+1554400180 e:\projekty\sklep_gtk\include\baza_danych.h
+	"gtk/gtk.h"
+	"windows.h"
+	"mysql.h"
+	<iostream>
 
