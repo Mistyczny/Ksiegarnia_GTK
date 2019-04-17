@@ -8,7 +8,6 @@
 #include <string>
 #include <boost/noncopyable.hpp>
 #include "Baza_danych.h"
-#include "M_Dialog_pracownik.h"
 
 class User : boost::noncopyable
 {
@@ -33,9 +32,6 @@ private:
     ///Adres
     GtkWidget* L_adres_zamieszkania;
     GtkWidget* E_adres_zamieszkania;
-    ///Kod pocztowy
-    GtkWidget* L_kod_pocztowy;
-    GtkWidget* E_kod_pocztowy;
     ///Email
     GtkWidget* L_email;
     GtkWidget* E_email;
@@ -61,8 +57,14 @@ public:
     const std::string getSurname();
     const bool getAdministator();
 
+    void zbuduj_okno_informacji_o_pracowniku();
+    void nowy_pracownik();
+    void dodaj_pracownika_do_bazy_danych
+    void modyfikuj_dane_pracownika(int i);
     void logIn(int i);
     void logOff();
+    bool przetworz_dane();
+    std::string sprawdz_czy_dane_poprawne(std::string,std::string,std::string,std::string,std::string,std::string="NIE");
 };
 
 #endif // USER_H

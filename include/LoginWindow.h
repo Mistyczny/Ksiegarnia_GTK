@@ -15,6 +15,7 @@
 #include "Shop.h"
 #include "define_login_window.h"
 #include "errors.h"
+#include "Baza_danych.h"
 
 class LoginWindow : private boost::noncopyable
 {

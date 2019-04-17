@@ -3,11 +3,11 @@
 
 #include "gtk/gtk.h"
 #include "User.h"
-#include "M_Dialog_pracownik.h"
 
 class C_Zakladka_Employee
 {
 private:
+    
     GtkWidget* okno_glowne;
     GtkWidget* box_glowny;
     GtkWidget* scr_kontener_pracownicy;

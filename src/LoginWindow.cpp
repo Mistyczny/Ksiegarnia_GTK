@@ -83,63 +83,24 @@ void LoginWindow::run()
 void LoginWindow::login(GtkWidget *target, gpointer arguments)
 {
     LoginWindow* temp = static_cast<LoginWindow*>(arguments);
-    MYSQL *connect = mysql_init(0);
-    mysql_options(connect, MYSQL_SET_CHARSET_NAME, "utf8");
-    mysql_options(connect, MYSQL_INIT_COMMAND, "SET NAMES utf8");
+    const gchar *login = (gchar*)gtk_entry_get_text(GTK_ENTRY(temp->textBox1));
+    const gchar *password = (gchar*)gtk_entry_get_text(GTK_ENTRY(temp->textBox2));
 
-    if((connect = mysql_real_connect(connect, "127.0.0.1","root","","sklep_ksiazek",0,NULL,0)) == NULL)
+    std::ostringstream make_sentence;
+    make_sentence<< "SELECT * FROM pracownicy WHERE Login = '" << login <<"' AND Hasło = PASSWORD('" << password << "')";
+
+    std::string check = make_sentence.str();
+    Baza_danych baza;
+    MYSQL_RES* result = baza.wyslij_zapytanie(check);
+    MYSQL_ROW row;
+    row = mysql_fetch_row(result);
+    mysql_free_result(result);
+    if(row!=NULL)
     {
-        std::cout<<"Nie udalo sie polaczyc z baza danych"<<std::endl;
-        temp->errors = gtk_message_dialog_new(GTK_WINDOW(temp->window),GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, "Error");
-        gtk_window_set_title(GTK_WINDOW(temp->errors), "Database connection error.");
-        gtk_dialog_run(GTK_DIALOG(temp->errors));
-        gtk_widget_destroy(temp->errors);
-        return;
+        temp->uzytkownik->logIn(atoi(row[0]));
+        gtk_widget_destroy(temp->window);
+        gtk_main_quit();
+        Shop sklep(temp->uzytkownik);
+        sklep.run();
     }
-    else
-    {
-        const gchar *login = (gchar*)gtk_entry_get_text(GTK_ENTRY(temp->textBox1));
-        const gchar *password = (gchar*)gtk_entry_get_text(GTK_ENTRY(temp->textBox2));
-
-        std::ostringstream make_sentence;
-        make_sentence<< "SELECT * FROM pracownicy WHERE Login = '" << login <<"' AND Hasło = PASSWORD('" << password << "')";
-        std::string check = make_sentence.str();
-        if(mysql_query(connect,check.c_str()))
-        {
-            temp->errors = gtk_message_dialog_new(GTK_WINDOW(temp->window), GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, "Login query is bad.");
-            gtk_window_set_title(GTK_WINDOW(temp->errors), "Error");
-            gtk_dialog_run(GTK_DIALOG(temp->errors));
-            gtk_widget_destroy(temp->errors);
-            mysql_close(connect);
-            return;
-        }
-        else
-        {
-            MYSQL_RES* result = mysql_store_result(connect);
-            MYSQL_ROW row;
-
-            row = mysql_fetch_row(result);
-            if(row!=NULL)
-            {
-                mysql_close(connect);
-                temp->uzytkownik->logIn(atoi(row[0]));
-                gtk_widget_destroy(temp->window);
-                gtk_main_quit();
-                Shop sklep(temp->uzytkownik);
-                sklep.run();
-
-            }
-            else
-            {
-                temp->errors = gtk_message_dialog_new(GTK_WINDOW(temp->window), GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, "You entered an incorrect password or login.");
-                gtk_window_set_title(GTK_WINDOW(temp->errors), "Error");
-                gtk_dialog_run(GTK_DIALOG(temp->errors));
-                gtk_widget_destroy(temp->errors);
-                mysql_close(connect);
-                return;
-            }
-        }
-    }
-    delete temp;
-    mysql_close(connect);
 }

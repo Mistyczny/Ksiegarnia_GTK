@@ -7,7 +7,7 @@
 	<memory>
 	<boost/shared_ptr.hpp>
 
-1551350151 e:\projekty\sklep_gtk\include\loginwindow.h
+1554576647 e:\projekty\sklep_gtk\include\loginwindow.h
 	<iostream>
 	<gtk/gtk.h>
 	<windows.h>
@@ -22,22 +22,22 @@
 	"Shop.h"
 	"define_login_window.h"
 	"errors.h"
+	"Baza_danych.h"
 
-1553769057 source:e:\projekty\sklep_gtk\src\loginwindow.cpp
+1554576968 source:e:\projekty\sklep_gtk\src\loginwindow.cpp
 	"LoginWindow.h"
 
-1553769617 e:\projekty\sklep_gtk\include\user.h
+1554890011 e:\projekty\sklep_gtk\include\user.h
 	<iostream>
 	<gtk/gtk.h>
 	<windows.h>
 	<mysql.h>
 	<string>
-	<sstream>
-	<cstdio>
 	<boost/noncopyable.hpp>
-	<memory>
+	"Baza_danych.h"
+	"M_Dialog_pracownik.h"
 
-1553769281 source:e:\projekty\sklep_gtk\src\user.cpp
+1554890011 source:e:\projekty\sklep_gtk\src\user.cpp
 	"User.h"
 
 1550348984 e:\projekty\sklep_gtk\include\utilities.h
@@ -78,7 +78,7 @@
 	"define.h"
 	"Informacje_o_Zamowieniu.h"
 
-1554127190 e:\projekty\sklep_gtk\include\define.h
+1555272900 e:\projekty\sklep_gtk\include\define.h
 
 1550776695 e:\projekty\sklep_gtk\include\define_login_window.h
 
@@ -128,17 +128,31 @@
 
 1554231210 e:\projekty\sklep_gtk\include\strona_zamowien.h
 
-1554386232 e:\projekty\sklep_gtk\include\c_zakladka_employee.h
+1554888156 e:\projekty\sklep_gtk\include\c_zakladka_employee.h
 	"gtk/gtk.h"
+	"User.h"
+	"M_Dialog_pracownik.h"
 
-1554400004 source:e:\projekty\sklep_gtk\src\c_zakladka_employee.cpp
+1555406807 source:e:\projekty\sklep_gtk\src\c_zakladka_employee.cpp
 	"C_Zakladka_Employee.h"
 	"Shop.h"
 	"Baza_danych.h"
 
-1554400180 e:\projekty\sklep_gtk\include\baza_danych.h
+1555492377 e:\projekty\sklep_gtk\include\baza_danych.h
 	"gtk/gtk.h"
 	"windows.h"
 	"mysql.h"
 	<iostream>
+
+1555492377 source:e:\projekty\sklep_gtk\src\baza_danych.cpp
+	"Baza_danych.h"
+
+1555493824 e:\projekty\sklep_gtk\include\m_dialog_pracownik.h
+	<gtk/gtk.h>
+	<iostream>
+	<Baza_danych.h>
+	<regex>
+
+1555490507 source:e:\projekty\sklep_gtk\src\m_dialog_pracownik.cpp
+	"M_Dialog_pracownik.h"
 
