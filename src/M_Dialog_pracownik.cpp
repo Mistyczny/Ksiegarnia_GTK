@@ -16,165 +16,191 @@ M_Dialog_pracownik::M_Dialog_pracownik(std::string scheme)
 {
     baza = new Baza_danych();
     message = gtk_dialog_new_with_buttons("Message",NULL,GTK_DIALOG_DESTROY_WITH_PARENT,"_ACCEPT", GTK_BUTTONS_OK, "_CANCEL",GTK_BUTTONS_CANCEL,NULL);
+    /// CONTENT_AREA - is a box into which i can insert my table with widgets
     GtkWidget* content_area;
     content_area = gtk_dialog_get_content_area(GTK_DIALOG(message));
 
-    if(scheme=="add")
+    try
     {
-        tabela = gtk_table_new(12, 2, TRUE);
-        gtk_table_set_row_spacings(GTK_TABLE(tabela), 2);
-        gtk_table_set_col_spacings(GTK_TABLE(tabela), 2);
+        if(scheme=="add")
+        {
+            tabela = gtk_table_new(12, 2, TRUE);
+            gtk_table_set_row_spacings(GTK_TABLE(tabela), 2);
+            gtk_table_set_col_spacings(GTK_TABLE(tabela), 2);
 
-        gtk_container_add(GTK_CONTAINER(content_area),tabela);
-        ///DOdawanie nagłówka
-        L_naglowek = gtk_label_new("Dodawanie nowego pracownika");
-        gtk_table_attach_defaults(GTK_TABLE(tabela), L_naglowek, 0, 2, 0, 1);
+            gtk_container_add(GTK_CONTAINER(content_area),tabela);
+            ///DOdawanie nagłówka
+            L_naglowek = gtk_label_new("Dodawanie nowego pracownika");
+            gtk_table_attach_defaults(GTK_TABLE(tabela), L_naglowek, 0, 2, 0, 1);
 
-        ///Dodawanie Label Imie i nazwisko
-        L_imie_i_nazwisko = gtk_label_new("Imie i nazwisko:");
-        gtk_table_attach_defaults(GTK_TABLE(tabela), L_imie_i_nazwisko, 0, 1, 1, 2);
-        ///Dodawanie Entry na imie
-        E_imie_i_nazwisko = gtk_entry_new();
-        gtk_table_attach_defaults(GTK_TABLE(tabela), E_imie_i_nazwisko, 1, 2,1,2);
+            ///Dodawanie Label Imie i nazwisko
+            L_imie_i_nazwisko = gtk_label_new("Imie i nazwisko:");
+            gtk_table_attach_defaults(GTK_TABLE(tabela), L_imie_i_nazwisko, 0, 1, 1, 2);
+            ///Dodawanie Entry na imie
+            E_imie_i_nazwisko = gtk_entry_new();
+            gtk_table_attach_defaults(GTK_TABLE(tabela), E_imie_i_nazwisko, 1, 2,1,2);
 
-        ///Dodawanie Label pesel
-        L_pesel = gtk_label_new("Pesel:");
-        gtk_table_attach_defaults(GTK_TABLE(tabela), L_pesel, 0, 1, 2, 3);
-        ///Dodawanie Entry na pesel
-        E_pesel = gtk_entry_new();
-        gtk_table_attach_defaults(GTK_TABLE(tabela), E_pesel, 1, 2,2,3);
+            ///Dodawanie Label pesel
+            L_pesel = gtk_label_new("Pesel:");
+            gtk_table_attach_defaults(GTK_TABLE(tabela), L_pesel, 0, 1, 2, 3);
+            ///Dodawanie Entry na pesel
+            E_pesel = gtk_entry_new();
+            gtk_table_attach_defaults(GTK_TABLE(tabela), E_pesel, 1, 2,2,3);
 
-        ///Dodanie Label miasto zamieszkania
-        L_miasto_zamieszkania = gtk_label_new("Miasto zamieszakania:");
-        gtk_table_attach_defaults(GTK_TABLE(tabela), L_miasto_zamieszkania, 0, 1,3,4);
-        ///Dodanie Entry na zamieszkanie
-        E_miasto_zamieszkania = gtk_entry_new();
-        gtk_table_attach_defaults(GTK_TABLE(tabela), E_miasto_zamieszkania, 1, 2,3,4);
+            ///Dodanie Label miasto zamieszkania
+            L_miasto_zamieszkania = gtk_label_new("Miasto zamieszakania:");
+            gtk_table_attach_defaults(GTK_TABLE(tabela), L_miasto_zamieszkania, 0, 1,3,4);
+            ///Dodanie Entry na zamieszkanie
+            E_miasto_zamieszkania = gtk_entry_new();
+            gtk_table_attach_defaults(GTK_TABLE(tabela), E_miasto_zamieszkania, 1, 2,3,4);
 
-        ///Dodanie Label Ulica i numer mieszkania
-        L_adres_zamieszkania = gtk_label_new("Ulica i numer mieszkania:");
-        gtk_table_attach_defaults(GTK_TABLE(tabela), L_adres_zamieszkania, 0, 1,4,5);
-        ///Dodanie Entry na Ulice i numer mieszkania
-        E_adres_zamieszkania = gtk_entry_new();
-        gtk_table_attach_defaults(GTK_TABLE(tabela), E_adres_zamieszkania, 1, 2,4,5);
+            ///Dodanie Label Ulica i numer mieszkania
+            L_adres_zamieszkania = gtk_label_new("Ulica i numer mieszkania:");
+            gtk_table_attach_defaults(GTK_TABLE(tabela), L_adres_zamieszkania, 0, 1,4,5);
+            ///Dodanie Entry na Ulice i numer mieszkania
+            E_adres_zamieszkania = gtk_entry_new();
+            gtk_table_attach_defaults(GTK_TABLE(tabela), E_adres_zamieszkania, 1, 2,4,5);
 
-        ///Dodanie Label Ulica i numer mieszkania
-        L_kod_pocztowy = gtk_label_new("Kod Pocztowy:");
-        gtk_table_attach_defaults(GTK_TABLE(tabela), L_kod_pocztowy, 0, 1,5,6);
-        ///Dodanie Entry na Ulice i numer mieszkania
-        E_kod_pocztowy = gtk_entry_new();
-        gtk_table_attach_defaults(GTK_TABLE(tabela), E_kod_pocztowy, 1, 2,5,6);
+            ///Dodanie Label Ulica i numer mieszkania
+            L_kod_pocztowy = gtk_label_new("Kod Pocztowy:");
+            gtk_table_attach_defaults(GTK_TABLE(tabela), L_kod_pocztowy, 0, 1,5,6);
+            ///Dodanie Entry na Ulice i numer mieszkania
+            E_kod_pocztowy = gtk_entry_new();
+            gtk_table_attach_defaults(GTK_TABLE(tabela), E_kod_pocztowy, 1, 2,5,6);
 
-        ///Dodanie Label email
-        L_email = gtk_label_new("Adres e-mail:");
-        gtk_table_attach_defaults(GTK_TABLE(tabela), L_email, 0, 1,6,7);
-        ///Dodanie Entry na email
-        E_email = gtk_entry_new();
-        gtk_table_attach_defaults(GTK_TABLE(tabela), E_email, 1, 2,6,7);
+            ///Dodanie Label email
+            L_email = gtk_label_new("Adres e-mail:");
+            gtk_table_attach_defaults(GTK_TABLE(tabela), L_email, 0, 1,6,7);
+            ///Dodanie Entry na email
+            E_email = gtk_entry_new();
+            gtk_table_attach_defaults(GTK_TABLE(tabela), E_email, 1, 2,6,7);
 
-        ///Dodanie Label email
-        L_tel = gtk_label_new("Nr Telefonu:");
-        gtk_table_attach_defaults(GTK_TABLE(tabela), L_tel, 0, 1,7,8);
-        ///Dodanie Entry na email
-        E_tel = gtk_entry_new();
-        gtk_table_attach_defaults(GTK_TABLE(tabela), E_tel, 1, 2,7,8);
+            ///Dodanie Label email
+            L_tel = gtk_label_new("Nr Telefonu:");
+            gtk_table_attach_defaults(GTK_TABLE(tabela), L_tel, 0, 1,7,8);
+            ///Dodanie Entry na email
+            E_tel = gtk_entry_new();
+            gtk_table_attach_defaults(GTK_TABLE(tabela), E_tel, 1, 2,7,8);
 
-        ///Dodanie Label administator
-        L_administrator = gtk_label_new("Prawa Administatora(TAK/NIE):");
-        gtk_table_attach_defaults(GTK_TABLE(tabela), L_administrator, 0, 1,8,9);
-        ///Dodanie Entry administrator
-        E_administrator = gtk_entry_new();
-        gtk_table_attach_defaults(GTK_TABLE(tabela), E_administrator, 1, 2,8,9);
+            ///Dodanie Label administator
+            L_administrator = gtk_label_new("Prawa Administatora(TAK/NIE):");
+            gtk_table_attach_defaults(GTK_TABLE(tabela), L_administrator, 0, 1,8,9);
+            ///Dodanie Entry administrator
+            E_administrator = gtk_entry_new();
+            gtk_table_attach_defaults(GTK_TABLE(tabela), E_administrator, 1, 2,8,9);
 
-        ///Dodanie Label login
-        L_login = gtk_label_new("Login:");
-        gtk_table_attach_defaults(GTK_TABLE(tabela), L_login, 0, 1,9,10);
-        ///Dodanie Entry login
-        E_login = gtk_entry_new();
-        gtk_table_attach_defaults(GTK_TABLE(tabela), E_login, 1, 2,9,10);
+            ///Dodanie Label login
+            L_login = gtk_label_new("Login:");
+            gtk_table_attach_defaults(GTK_TABLE(tabela), L_login, 0, 1,9,10);
+            ///Dodanie Entry login
+            E_login = gtk_entry_new();
+            gtk_table_attach_defaults(GTK_TABLE(tabela), E_login, 1, 2,9,10);
 
-        ///Dodanie Label hasło
-        L_haslo = gtk_label_new("Hasło:");
-        gtk_table_attach_defaults(GTK_TABLE(tabela), L_haslo, 0, 1,10,11);
-        ///Dodanie Entry hasło
-        E_haslo = gtk_entry_new();
-        gtk_table_attach_defaults(GTK_TABLE(tabela), E_haslo, 1, 2,10,11);
+            ///Dodanie Label hasło
+            L_haslo = gtk_label_new("Hasło:");
+            gtk_table_attach_defaults(GTK_TABLE(tabela), L_haslo, 0, 1,10,11);
+            ///Dodanie Entry hasło
+            E_haslo = gtk_entry_new();
+            gtk_table_attach_defaults(GTK_TABLE(tabela), E_haslo, 1, 2,10,11);
 
-        InfoAboutWrongData= gtk_label_new("");
-        gtk_table_attach_defaults(GTK_TABLE(tabela),InfoAboutWrongData, 0, 2,11,12);
+            InfoAboutWrongData= gtk_label_new("");
+            gtk_table_attach_defaults(GTK_TABLE(tabela),InfoAboutWrongData, 0, 2,11,12);
+        }
+        else if(scheme=="modify")
+        {
+            tabela = gtk_table_new(10, 2, TRUE);
+            gtk_table_set_row_spacings(GTK_TABLE(tabela), 2);
+            gtk_table_set_col_spacings(GTK_TABLE(tabela), 2);
+
+            gtk_container_add(GTK_CONTAINER(content_area),tabela);
+            ///DOdawanie nagłówka
+            L_naglowek = gtk_label_new("Modyfikacja danych pracownika");
+            gtk_table_attach_defaults(GTK_TABLE(tabela), L_naglowek, 0, 2, 0, 1);
+
+            ///Dodawanie Label Imie i nazwisko
+            L_imie_i_nazwisko = gtk_label_new("Imie i nazwisko:");
+            gtk_table_attach_defaults(GTK_TABLE(tabela), L_imie_i_nazwisko, 0, 1, 1, 2);
+            ///Dodawanie Entry na imie
+            E_imie_i_nazwisko = gtk_entry_new();
+            gtk_table_attach_defaults(GTK_TABLE(tabela), E_imie_i_nazwisko, 1, 2,1,2);
+
+            ///Dodawanie Label pesel
+            L_pesel = gtk_label_new("Pesel:");
+            gtk_table_attach_defaults(GTK_TABLE(tabela), L_pesel, 0, 1, 2, 3);
+            ///Dodawanie Entry na pesel
+            E_pesel = gtk_entry_new();
+            gtk_table_attach_defaults(GTK_TABLE(tabela), E_pesel, 1, 2,2,3);
+
+            ///Dodanie Label miasto zamieszkania
+            L_miasto_zamieszkania = gtk_label_new("Miasto zamieszakania:");
+            gtk_table_attach_defaults(GTK_TABLE(tabela), L_miasto_zamieszkania, 0, 1,3,4);
+            ///Dodanie Entry na zamieszkanie
+            E_miasto_zamieszkania = gtk_entry_new();
+            gtk_table_attach_defaults(GTK_TABLE(tabela), E_miasto_zamieszkania, 1, 2,3,4);
+
+            ///Dodanie Label Ulica i numer mieszkania
+            L_adres_zamieszkania = gtk_label_new("Ulica i numer mieszkania:");
+            gtk_table_attach_defaults(GTK_TABLE(tabela), L_adres_zamieszkania, 0, 1,4,5);
+            ///Dodanie Entry na Ulice i numer mieszkania
+            E_adres_zamieszkania = gtk_entry_new();
+            gtk_table_attach_defaults(GTK_TABLE(tabela), E_adres_zamieszkania, 1, 2,4,5);
+
+            ///Dodanie Label Ulica i numer mieszkania
+            L_kod_pocztowy = gtk_label_new("Kod Pocztowy:");
+            gtk_table_attach_defaults(GTK_TABLE(tabela), L_kod_pocztowy, 0, 1,5,6);
+            ///Dodanie Entry na Ulice i numer mieszkania
+            E_kod_pocztowy = gtk_entry_new();
+            gtk_table_attach_defaults(GTK_TABLE(tabela), E_kod_pocztowy, 1, 2,5,6);
+
+            ///Dodanie Label email
+            L_email = gtk_label_new("Adres e-mail:");
+            gtk_table_attach_defaults(GTK_TABLE(tabela), L_email, 0, 1,6,7);
+            ///Dodanie Entry na email
+            E_email = gtk_entry_new();
+            gtk_table_attach_defaults(GTK_TABLE(tabela), E_email, 1, 2,6,7);
+
+            ///Dodanie Label email
+            L_tel = gtk_label_new("Nr Telefonu:");
+            gtk_table_attach_defaults(GTK_TABLE(tabela), L_tel, 0, 1,7,8);
+            ///Dodanie Entry na email
+            E_tel = gtk_entry_new();
+            gtk_table_attach_defaults(GTK_TABLE(tabela), E_tel, 1, 2,7,8);
+
+            ///Dodanie Label administator
+            L_administrator = gtk_label_new("Prawa Administatora(TAK/NIE):");
+            gtk_table_attach_defaults(GTK_TABLE(tabela), L_administrator, 0, 1,8,9);
+            ///Dodanie Entry administrator
+            E_administrator = gtk_entry_new();
+            gtk_table_attach_defaults(GTK_TABLE(tabela), E_administrator, 1, 2,8,9);
+
+            InfoAboutWrongData= gtk_label_new("");
+            gtk_table_attach_defaults(GTK_TABLE(tabela),InfoAboutWrongData, 0, 2,9,10);
+        }
+        else throw std::string("ZLY PARAMETR");
     }
-    else if(scheme=="modify")
+    catch(std::bad_alloc& alloc)
     {
-        tabela = gtk_table_new(10, 2, TRUE);
-        gtk_table_set_row_spacings(GTK_TABLE(tabela), 2);
-        gtk_table_set_col_spacings(GTK_TABLE(tabela), 2);
-
-        gtk_container_add(GTK_CONTAINER(content_area),tabela);
-        ///DOdawanie nagłówka
-        L_naglowek = gtk_label_new("Modyfikacja danych pracownika");
-        gtk_table_attach_defaults(GTK_TABLE(tabela), L_naglowek, 0, 2, 0, 1);
-
-        ///Dodawanie Label Imie i nazwisko
-        L_imie_i_nazwisko = gtk_label_new("Imie i nazwisko:");
-        gtk_table_attach_defaults(GTK_TABLE(tabela), L_imie_i_nazwisko, 0, 1, 1, 2);
-        ///Dodawanie Entry na imie
-        E_imie_i_nazwisko = gtk_entry_new();
-        gtk_table_attach_defaults(GTK_TABLE(tabela), E_imie_i_nazwisko, 1, 2,1,2);
-
-        ///Dodawanie Label pesel
-        L_pesel = gtk_label_new("Pesel:");
-        gtk_table_attach_defaults(GTK_TABLE(tabela), L_pesel, 0, 1, 2, 3);
-        ///Dodawanie Entry na pesel
-        E_pesel = gtk_entry_new();
-        gtk_table_attach_defaults(GTK_TABLE(tabela), E_pesel, 1, 2,2,3);
-
-        ///Dodanie Label miasto zamieszkania
-        L_miasto_zamieszkania = gtk_label_new("Miasto zamieszakania:");
-        gtk_table_attach_defaults(GTK_TABLE(tabela), L_miasto_zamieszkania, 0, 1,3,4);
-        ///Dodanie Entry na zamieszkanie
-        E_miasto_zamieszkania = gtk_entry_new();
-        gtk_table_attach_defaults(GTK_TABLE(tabela), E_miasto_zamieszkania, 1, 2,3,4);
-
-        ///Dodanie Label Ulica i numer mieszkania
-        L_adres_zamieszkania = gtk_label_new("Ulica i numer mieszkania:");
-        gtk_table_attach_defaults(GTK_TABLE(tabela), L_adres_zamieszkania, 0, 1,4,5);
-        ///Dodanie Entry na Ulice i numer mieszkania
-        E_adres_zamieszkania = gtk_entry_new();
-        gtk_table_attach_defaults(GTK_TABLE(tabela), E_adres_zamieszkania, 1, 2,4,5);
-
-        ///Dodanie Label Ulica i numer mieszkania
-        L_kod_pocztowy = gtk_label_new("Kod Pocztowy:");
-        gtk_table_attach_defaults(GTK_TABLE(tabela), L_kod_pocztowy, 0, 1,5,6);
-        ///Dodanie Entry na Ulice i numer mieszkania
-        E_kod_pocztowy = gtk_entry_new();
-        gtk_table_attach_defaults(GTK_TABLE(tabela), E_kod_pocztowy, 1, 2,5,6);
-
-        ///Dodanie Label email
-        L_email = gtk_label_new("Adres e-mail:");
-        gtk_table_attach_defaults(GTK_TABLE(tabela), L_email, 0, 1,6,7);
-        ///Dodanie Entry na email
-        E_email = gtk_entry_new();
-        gtk_table_attach_defaults(GTK_TABLE(tabela), E_email, 1, 2,6,7);
-
-        ///Dodanie Label email
-        L_tel = gtk_label_new("Nr Telefonu:");
-        gtk_table_attach_defaults(GTK_TABLE(tabela), L_tel, 0, 1,7,8);
-        ///Dodanie Entry na email
-        E_tel = gtk_entry_new();
-        gtk_table_attach_defaults(GTK_TABLE(tabela), E_tel, 1, 2,7,8);
-
-        ///Dodanie Label administator
-        L_administrator = gtk_label_new("Prawa Administatora(TAK/NIE):");
-        gtk_table_attach_defaults(GTK_TABLE(tabela), L_administrator, 0, 1,8,9);
-        ///Dodanie Entry administrator
-        E_administrator = gtk_entry_new();
-        gtk_table_attach_defaults(GTK_TABLE(tabela), E_administrator, 1, 2,8,9);
-
-        InfoAboutWrongData= gtk_label_new("");
-        gtk_table_attach_defaults(GTK_TABLE(tabela),InfoAboutWrongData, 0, 2,9,10);
+        std::cout<<alloc.what();
     }
-    else throw std::string("ZLY PARAMETR");
+    catch(std::string& bad_param)
+    {
+        std::cout<<bad_param;
+    }
+
+    /// GTK_Dialog will show all of them after running gtk_widget_show_all(GTK_DIALOG) funcion
     gtk_widget_show_all(message);
+}
+/*********************************************************************************************************
+*
+* \brief constructor
+* \brief open connection to database
+* \brief creates an instance of GTK_message
+*
+**********************************************************************************************************/
+M_Dialog_pracownik::M_Dialog_pracownik()
+{
+    baza = new Baza_danych();
+    message = gtk_message_dialog_new(NULL,GTK_DIALOG_DESTROY_WITH_PARENT,GTK_MESSAGE_QUESTION,GTK_BUTTONS_OK_CANCEL,"Czy napewno chcesz usunąć tego pracownika?");
 }
 
 /*********************************************************************************************************
@@ -185,7 +211,7 @@ M_Dialog_pracownik::M_Dialog_pracownik(std::string scheme)
 **********************************************************************************************************/
 M_Dialog_pracownik::~M_Dialog_pracownik()
 {
-    delete baza;
+    delete baza; ///destructor of class Baza_danych will shut down connection with database
 }
 
 /*********************************************************************************************************
@@ -307,7 +333,7 @@ std::string M_Dialog_pracownik::sprawdz_czy_dane_poprawne(dane data)
     }
 
     /// sprawdzenie poprawnosci formy adresu e-mail
-    wzorzec.assign("([a-zA-Z1-9]+)\\@([a-z1-9]+)\\.([a-z]+)");
+    wzorzec.assign("([a-zA-Z1-9.]+)\\@([a-z1-9]+)\\.([a-z]+)");
     if(!regex_match(data.A_email,wzorzec))
     {
         return "Niepoprawny adres e-mail";
@@ -360,7 +386,6 @@ void M_Dialog_pracownik::wstaw_informacje(dane data)
     if(row!=NULL)
     {
         id_adresu = atoi(row[0]);
-        std::cout<<id_adresu<<std::endl;
     }
     else
     {
@@ -374,8 +399,8 @@ void M_Dialog_pracownik::wstaw_informacje(dane data)
     }
 
     bool powodzenie = baza->modyfikuj_rekord("INSERT INTO pracownicy(ID_Pracownika,Imie,Nazwisko,Pesel,E_mail,Nr_tel,Login,Hasło,ID_adresu_zamieszkania,Administrator) VALUES(null,'"
-                       +imie+"','"+nazwisko+"','"+data.Pesel+"','"+"','"+data.A_email+"','"+"','"+data.Nr_tel+"','"
-                       +data.Login+"',PASSWORD('"+data.Haslo+"'),"+std::to_string(id_adresu)+","+((data.Admin=="TAK")?("1"):("0"))+")");
+                                             +imie+"','"+nazwisko+"','"+data.Pesel+"','"+data.A_email+"','"+data.Nr_tel+"','"
+                                             +data.Login+"',PASSWORD('"+data.Haslo+"'),'"+std::to_string(id_adresu)+"',"+((data.Admin=="TAK")?("1"):("0"))+")");
 
     if(powodzenie==true)
     {
@@ -524,30 +549,26 @@ void M_Dialog_pracownik::zapisz_zmiany(dane data,int index)
             std::string ulica = data.Ulica_i_numer.substr(0,pozycja_cyfr-1);
             std::string digits = data.Ulica_i_numer.substr(pozycja_cyfr);
 
-            //SELECT ID_adresu_zamieszkania,COUNT(ID_adresu_zamieszkania) FROM adres_zamieszkania WHERE Ulica='Ogrodowa' AND Nr_domu='3' AND Miejscowość='Bochnia'
-
-            std::string adres = "SELECT ID_adresu_zamieszkania FROM adres_zamieszkania WHERE Ulica='"+ulica+"' AND Nr_Domu='"+digits+"' AND Miejscowość='"+data.Miasta_zamieszkania+"'";
-            MYSQL_RES* result = baza->wyslij_zapytanie(adres);
-            MYSQL_ROW row = mysql_fetch_row(result);
-            mysql_free_result(result);
-            int id_adresu;
-
-            if(row!=NULL)
+            if(sprawdzenie_istnienia_adresu(data.Miasta_zamieszkania,ulica,digits)==1)
             {
-                data.id_adresu_zamieszkania = atoi(row[0]);
+                baza->wyslij_zapytanie("UPDATE adres_zamieszkania SET Kod_Pocztowy='"+data.Kod_pocztowy+"',Miejscowość='"+data.Miasta_zamieszkania
+                                  +"',Nr_Domu='"+digits+"',Ulica='"+ulica+"' WHERE ID_adresu_zamieszkania="+std::to_string(data.id_adresu_zamieszkania));
             }
             else
             {
+                MYSQL_RES *result;
+                baza->wyslij_zapytanie("INSERT INTO adres_zamieszkania (ID_adresu_zamieszkania,Ulica,Nr_Domu,Kod_Pocztowy,Miejscowość) VALUES(null,'"
+                                        +ulica+"',"+digits+",'"+data.Kod_pocztowy+"','"+data.Miasta_zamieszkania+"')");
+                result = baza->wyslij_zapytanie("SELECT ID_adresu_zamieszkania FROM adres_zamieszkania WHERE Ulica='"
+                                                +ulica+"' AND Nr_Domu="+digits+" AND Kod_Pocztowy='"+data.Kod_pocztowy+"' AND Miejscowość='"+data.Miasta_zamieszkania+"'");
+                MYSQL_ROW row = mysql_fetch_row(result);
+                mysql_free_result(result);
+                data.id_adresu_zamieszkania = atoi(row[0]);
 
             }
-
-            baza->wyslij_zapytanie("UPDATE adres_zamieszkania SET Kod_Pocztowy='"+data.Kod_pocztowy+"',Miejscowość='"+data.Miasta_zamieszkania
-                                  +"',Nr_Domu='"+digits+"',Ulica='"+ulica+"' WHERE ID_adresu_zamieszkania="+std::to_string(data.id_adresu_zamieszkania));
-
             bool powodzenie = baza->modyfikuj_rekord("UPDATE pracownicy SET Imie='"+imie+"',Nazwisko='"+nazwisko+"',Pesel='"+data.Pesel
                                                      +"',E_mail='"+data.A_email+"',Nr_tel='"+data.Nr_tel+"',ID_adresu_zamieszkania='"+std::to_string(data.id_adresu_zamieszkania)+
                                                      "',Administrator='"+((data.Admin=="TAK")?("1"):("0"))+"' WHERE ID_Pracownika="+std::to_string(index));
-
             if(powodzenie==true)
             {
                 result_message = gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_OTHER, GTK_BUTTONS_OK, "Udało sie wprowadzić zmiany");
@@ -575,16 +596,77 @@ void M_Dialog_pracownik::zapisz_zmiany(dane data,int index)
     }
     gtk_widget_destroy(question_message);
 }
-
-void M_Dialog_pracownik::zabawa_z_adresem(std::string miasto,std::string ulica,std::string nr_domu)
+/*********************************************************************************************************
+*
+* \brief function deals with adres issues
+* \param string miasto - name of city,ulica - name of street, nr_domu - home number on the street
+* \brief checks if any employee or client has specific id_adres
+* \return number of appearence in database of special id_adres
+*
+**********************************************************************************************************/
+int M_Dialog_pracownik::sprawdzenie_istnienia_adresu(std::string miasto,std::string ulica,std::string nr_domu)
 {
-    int id_adresu;
-    int ilosc_powtorzen;
+    int id_adresu=0;
+    int ilosc_powtorzen=0;
     std::string pracownicy = "SELECT pracownicy.ID_adresu_zamieszkania,COUNT(pracownicy.ID_adresu_zamieszkania) FROM pracownicy INNER JOIN adres_zamieszkania ON pracownicy.ID_adresu_zamieszkania=adres_zamieszkania.ID_adresu_zamieszkania WHERE Ulica='"
                              +ulica+"' AND Nr_domu='"+nr_domu+"' AND Miejscowość='"+miasto+"'";
     MYSQL_RES* result = baza->wyslij_zapytanie(pracownicy);
     MYSQL_ROW row = mysql_fetch_row(result);
     mysql_free_result(result);
+    id_adresu=atoi(row[0]);
+    ilosc_powtorzen+=atoi(row[1]);
+    std::string klienci =   "SELECT klienci.ID_adresu_zamieszkania,COUNT(klienci.ID_adresu_zamieszkania) FROM klienci INNER JOIN adres_zamieszkania ON klienci.ID_adresu_zamieszkania=adres_zamieszkania.ID_adresu_zamieszkania WHERE Ulica='"
+                            +ulica+"' AND Miejscowość='"+miasto+"' AND Nr_Domu='"+nr_domu+"'";
+    result = baza->wyslij_zapytanie(klienci);
+    row = mysql_fetch_row(result);
+    mysql_free_result(result);
+    ilosc_powtorzen+=atoi(row[1]);
 
+    return ilosc_powtorzen;
+}
+/*********************************************************************************************************
+*
+* \brief main window and event handling of delete employee message window
+* \return void
+*
+**********************************************************************************************************/
+void M_Dialog_pracownik::usun_pracownika(int index)
+{
+        switch(gtk_dialog_run(GTK_DIALOG(message)))
+        {
+            case GTK_RESPONSE_OK:
+                {
+                    usun_dane(index);
+                    break;
+                }
+            case GTK_RESPONSE_NO:
+                {
+                    break;
+                }
+        }
+    gtk_widget_destroy(message);
+}
+/*********************************************************************************************************
+*
+* \brief function delete info about employee from database
+* \param index - employee ID number
+* \brief if there is only 1 person with special id_adress then delete this adres too from database
+* \return void
+*
+**********************************************************************************************************/
+void M_Dialog_pracownik::usun_dane(int index)
+{
+    MYSQL_RES *result = baza->wyslij_zapytanie("SELECT a.Ulica,a.Nr_domu,a.Miejscowość,a.ID_adresu_zamieszkania FROM pracownicy p INNER JOIN adres_zamieszkania a ON p.ID_adresu_zamieszkania=a.ID_adresu_zamieszkania WHERE p.ID_Pracownika='"+std::to_string(index)+"'");
+    MYSQL_ROW row = mysql_fetch_row(result);
+    mysql_free_result(result);
+    std::string ulica=row[0];
+    std::string Nr_domu=row[1];
+    std::string miejscowosc=row[2];
+    int id_ad=atoi(row[3]);
 
+    if(sprawdzenie_istnienia_adresu(miejscowosc,ulica,Nr_domu)==1)
+    {
+        baza->wyslij_zapytanie("DELETE FROM adres_zamieszkania WHERE ID_adresu_zamieszkania="+std::to_string(id_ad)+";");
+    }
+    baza->wyslij_zapytanie("DELETE FROM pracownicy WHERE ID_Pracownika='"+std::to_string(index)+"'");
 }

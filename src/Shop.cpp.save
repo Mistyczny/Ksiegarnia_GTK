@@ -11,7 +11,6 @@ Shop::Shop(boost::shared_ptr<User>& uzytkownik_)
     std::cout<<"TWORZE SHOP"<<std::endl;
     this->uzytkownik = uzytkownik_;
     this->build();
-    aktualna_strona = 1;
 }
 
 Shop::~Shop()
@@ -73,38 +72,35 @@ void Shop::build_casual_widgets()
     {
         /// przyciski dla admina
         Btn_spis_dostepnych_ksiazek = gtk_button_new();
-        g_object_set_data(G_OBJECT(Btn_spis_dostepnych_ksiazek), "number", GINT_TO_POINTER (1));
-
         this->Active_button = Btn_spis_dostepnych_ksiazek;
         gtk_button_set_label(GTK_BUTTON(Btn_spis_dostepnych_ksiazek), "Available books");
         gtk_table_attach_defaults(GTK_TABLE(box_glowny), Btn_spis_dostepnych_ksiazek, 3, 4, 0, 1);
-        g_signal_connect(Btn_spis_dostepnych_ksiazek, "clicked", G_CALLBACK(&Shop::change_page), this);
+        g_signal_connect(Btn_spis_dostepnych_ksiazek, "clicked", G_CALLBACK(&Shop::change_to_spis_ksiazek), this);
 
         Btn_zamowienie = gtk_button_new();
-        g_object_set_data(G_OBJECT(Btn_zamowienie), "number", GINT_TO_POINTER (2));
-
         gtk_button_set_label(GTK_BUTTON(Btn_zamowienie), "Orders");
         gtk_table_attach_defaults(GTK_TABLE(box_glowny), Btn_zamowienie, 5, 6, 0, 1);
-        g_signal_connect(Btn_zamowienie, "clicked", G_CALLBACK(&Shop::change_page), this);
+        g_signal_connect(Btn_zamowienie, "clicked", G_CALLBACK(&Shop::change_to_orders), this);
 
         Btn_spis_pracownikow = gtk_button_new();
-        g_object_set_data(G_OBJECT(Btn_spis_pracownikow), "number", GINT_TO_POINTER (3));
-
         gtk_button_set_label(GTK_BUTTON(Btn_spis_pracownikow), "Employee");
         gtk_table_attach_defaults(GTK_TABLE(box_glowny), Btn_spis_pracownikow, 7, 8, 0, 1);
+        g_object_set_data(G_OBJECT(Btn_spis_pracownikow), "number", GINT_TO_POINTER (3));
         g_signal_connect(Btn_spis_pracownikow, "clicked", G_CALLBACK(&Shop::change_page), this);
+
+        /// build frame about user
     }
     else
     {
         Btn_spis_dostepnych_ksiazek = gtk_button_new();
         gtk_button_set_label(GTK_BUTTON(Btn_spis_dostepnych_ksiazek), "Available books");
         gtk_table_attach_defaults(GTK_TABLE(box_glowny), Btn_spis_dostepnych_ksiazek, 3, 5, 0, 1);
-        g_signal_connect(Btn_spis_dostepnych_ksiazek, "clicked", G_CALLBACK(&Shop::change_page), this);
+        g_signal_connect(Btn_spis_dostepnych_ksiazek, "clicked", G_CALLBACK(&Shop::log_off), this);
 
         Btn_zamowienie = gtk_button_new();
         gtk_button_set_label(GTK_BUTTON(Btn_zamowienie), "Orders");
         gtk_table_attach_defaults(GTK_TABLE(box_glowny), Btn_zamowienie, 6, 8, 0, 1);
-        g_signal_connect(Btn_zamowienie, "clicked", G_CALLBACK(&Shop::change_page), this);
+        g_signal_connect(Btn_zamowienie, "clicked", G_CALLBACK(&Shop::change_to_orders), this);
     }
 }
 /****************************************************************************
@@ -276,6 +272,63 @@ void Shop::log_off(GtkWidget *target, gpointer arguments)
 {
     Shop *temp = static_cast<Shop*>(arguments);
     gtk_widget_destroy(temp->okno_programu);
+}
+/***********************************************************************************
+*
+*   /functions that gonna change between pages
+*
+************************************************************************************/
+
+void Shop::change_to_orders(GtkWidget *target, gpointer arguments)
+{
+    Shop* temp = static_cast<Shop*>(arguments);
+    if(temp->Active_button == target)
+    {
+
+    }
+    else if(temp->Active_button == temp->Btn_spis_dostepnych_ksiazek)
+    {
+        gtk_container_remove(GTK_CONTAINER(temp->box_glowny),temp->Btn_add_info_about_book);
+        gtk_container_remove(GTK_CONTAINER(temp->box_glowny),temp->scrolled_box_for_info_about_books);
+        gtk_container_remove(GTK_CONTAINER(temp->box_glowny),temp->scrolled_box_for_books);
+        gtk_container_remove(GTK_CONTAINER(temp->box_glowny),temp->VBox_wybieranie_sposobu_sortowania_dostepnych_ksiazek);
+        temp->zakladka_zamowienia->pokaz_widzety();
+        gtk_widget_show_all(temp->okno_programu);
+        temp->Active_button = target;
+
+    }
+    else if(temp->Active_button == temp->Btn_spis_pracownikow)
+    {
+        std::cout<<"JEST"<<std::endl;
+    }
+}
+
+void Shop::change_to_spis_ksiazek(GtkWidget *target, gpointer arguments)
+{
+    Shop* temp = static_cast<Shop*>(arguments);
+
+    if(temp->Active_button == target)
+    {
+    }
+    else if(temp->Active_button == temp->Btn_zamowienie)
+    {
+        temp->zakladka_zamowienia->schowaj_widzety();
+        gtk_table_attach_defaults(GTK_TABLE(temp->box_glowny),temp->Btn_add_info_about_book,5, 6, 9, 10);
+        gtk_table_attach_defaults(GTK_TABLE(temp->box_glowny),temp->scrolled_box_for_books,3,7,3,9);
+        gtk_table_attach_defaults(GTK_TABLE(temp->box_glowny),temp->scrolled_box_for_info_about_books,7, 10, 3, 9);
+        gtk_table_attach_defaults(GTK_TABLE(temp->box_glowny),temp->VBox_wybieranie_sposobu_sortowania_dostepnych_ksiazek,3, 4, 2, 3);
+        temp->Active_button = target;
+    }
+    else if(temp->Active_button == temp->Btn_spis_pracownikow)
+    {
+        temp->dodaj_widzety_obslugi_tabel();
+        temp->zakladka_employee->remove_employee_widgets();
+        gtk_table_attach_defaults(GTK_TABLE(temp->box_glowny),temp->Btn_add_info_about_book,5, 6, 9, 10);
+        gtk_table_attach_defaults(GTK_TABLE(temp->box_glowny),temp->scrolled_box_for_books,3,7,3,9);
+        gtk_table_attach_defaults(GTK_TABLE(temp->box_glowny),temp->scrolled_box_for_info_about_books,7, 10, 3, 9);
+        gtk_table_attach_defaults(GTK_TABLE(temp->box_glowny),temp->VBox_wybieranie_sposobu_sortowania_dostepnych_ksiazek,3, 4, 2, 3);
+        temp->Active_button = target;
+    }
 }
 /***********************************************************************************
 *
@@ -601,56 +654,5 @@ void Shop::dodaj_widzety_obslugi_tabel()
 void Shop::change_page(GtkWidget *target, gpointer arguments)
 {
     Shop* temp = static_cast<Shop*>(arguments);
-    int column = GPOINTER_TO_INT(g_object_get_data (G_OBJECT(target), "number"));
-
-    if(column!=temp->aktualna_strona)
-    {
-        switch(temp->aktualna_strona)
-        {
-            case 1:
-            {
-                gtk_container_remove(GTK_CONTAINER(temp->box_glowny),temp->Btn_add_info_about_book);
-                gtk_container_remove(GTK_CONTAINER(temp->box_glowny),temp->scrolled_box_for_info_about_books);
-                gtk_container_remove(GTK_CONTAINER(temp->box_glowny),temp->scrolled_box_for_books);
-                gtk_container_remove(GTK_CONTAINER(temp->box_glowny),temp->VBox_wybieranie_sposobu_sortowania_dostepnych_ksiazek);
-                break;
-            }
-            case 2:
-            {
-                temp->zakladka_zamowienia->schowaj_widzety();
-                break;
-            }
-            case 3:
-            {
-                temp->zakladka_employee->schowaj_widzety();
-                break;
-            }
-        }
-
-        switch(column)
-        {
-            case 1:
-            {
-                gtk_table_attach_defaults(GTK_TABLE(temp->box_glowny),temp->Btn_add_info_about_book,5, 6, 9, 10);
-                gtk_table_attach_defaults(GTK_TABLE(temp->box_glowny),temp->scrolled_box_for_books,3,7,3,9);
-                gtk_table_attach_defaults(GTK_TABLE(temp->box_glowny),temp->scrolled_box_for_info_about_books,7, 10, 3, 9);
-                gtk_table_attach_defaults(GTK_TABLE(temp->box_glowny),temp->VBox_wybieranie_sposobu_sortowania_dostepnych_ksiazek,3, 4, 2, 3);
-                temp->aktualna_strona=1;
-                break;
-            }
-            case 2:
-            {
-                temp->zakladka_zamowienia->pokaz_widzety();
-                temp->aktualna_strona=2;
-                break;
-            }
-            case 3:
-            {
-                temp->zakladka_employee->pokaz_widzety();
-                temp->aktualna_strona=3;
-                break;
-            }
-        }
-        gtk_widget_show_all(temp->okno_programu);
-    }
+    
 }

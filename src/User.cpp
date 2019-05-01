@@ -7,6 +7,7 @@ User::User()
 
 User::~User()
 {
+    std::cout<<"ZABIJAM UZYTKOWNIKA"<<std::endl;
 }
 
 void User::setMyId(int MyId_)

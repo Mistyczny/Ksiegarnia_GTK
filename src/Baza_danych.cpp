@@ -18,7 +18,7 @@ Baza_danych::Baza_danych()
 
 Baza_danych::~Baza_danych()
 {
-    std::cout<<"Zamykam wejscie do bazy danych"<<std::endl;
+    //std::cout<<"Zamykam wejscie do bazy danych"<<std::endl;
     mysql_close(connect);
 }
 
@@ -49,5 +49,23 @@ bool Baza_danych::modyfikuj_rekord(std::string zapytanie)
     else
     {
         return true;
+    }
+}
+
+MYSQL_RES* Baza_danych::wyslij_pytanie(const std::string& zapytanie)
+{
+    if(mysql_query(connect,zapytanie.c_str()))
+    {
+        std::cout<<"Nie udalo sie polaczyc z baza danych"<<std::endl;
+        error = gtk_message_dialog_new(NULL,GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, "Error");
+        gtk_window_set_title(GTK_WINDOW(error), "Database connection error.");
+        gtk_dialog_run(GTK_DIALOG(error));
+        gtk_widget_destroy(error);
+        exit(0);
+    }
+    else
+    {
+        MYSQL_RES *idZapytania = mysql_store_result(connect);
+        return idZapytania;
     }
 }

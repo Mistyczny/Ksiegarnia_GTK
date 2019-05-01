@@ -15,6 +15,8 @@ class Baza_danych
         Baza_danych();
         MYSQL_RES* wyslij_zapytanie(std::string);
         bool modyfikuj_rekord(std::string);
+        MYSQL_RES* wyslij_pytanie(const std::string&);
+
         virtual ~Baza_danych();
 };
 

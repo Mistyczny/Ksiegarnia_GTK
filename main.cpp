@@ -8,11 +8,15 @@
 int main(int argc,char *argv[])
 {
     setlocale(LC_ALL,"");
-    boost::shared_ptr<User> uzytkownik(new User());
+    bool loop = true;
+    //while(loop)
+   // {
+        boost::shared_ptr<User> uzytkownik(new User());
 
-    LoginWindow okno_logowania(uzytkownik);
-    okno_logowania.init(argc,argv);
-    okno_logowania.build();
-    okno_logowania.run();
+        LoginWindow okno_logowania(uzytkownik);
+        okno_logowania.init(argc,argv);
+        okno_logowania.build();
+        okno_logowania.run();
+   // }
 return 0;
 }

@@ -16,7 +16,8 @@ M_Dialog_pracownik::M_Dialog_pracownik(std::string scheme)
 {
     baza = new Baza_danych();
     message = gtk_dialog_new_with_buttons("Message",NULL,GTK_DIALOG_DESTROY_WITH_PARENT,"_ACCEPT", GTK_BUTTONS_OK, "_CANCEL",GTK_BUTTONS_CANCEL,NULL);
-    GtkWidget* content_area;
+    /// CONTENT_AREA - is a box into which i can insert my table with widgets
+    GtkWidget* content_area;                                        
     content_area = gtk_dialog_get_content_area(GTK_DIALOG(message));
 
     if(scheme=="add")
@@ -174,7 +175,22 @@ M_Dialog_pracownik::M_Dialog_pracownik(std::string scheme)
         gtk_table_attach_defaults(GTK_TABLE(tabela),InfoAboutWrongData, 0, 2,9,10);
     }
     else throw std::string("ZLY PARAMETR");
+    
+    /// GTK_Dialog will show all of them after running gtk_widget_show_all(GTK_DIALOG) funcion
     gtk_widget_show_all(message);
+}
+/*********************************************************************************************************
+*
+* \brief constructor
+* \brief open connection to database
+* \brief creates an instance of GTK_message
+*
+**********************************************************************************************************/
+M_Dialog_pracownik::M_Dialog_pracownik()
+{
+    
+    baza = new Baza_danych();
+    message = gtk_message_dialog_new(NULL,GTK_DIALOG_DESTROY_WITH_PARENT,GTK_MESSAGE_QUESTION,GTK_BUTTONS_OK_CANCEL,"Czy napewno chcesz usunąć tego pracownika?");
 }
 
 /*********************************************************************************************************
@@ -360,7 +376,6 @@ void M_Dialog_pracownik::wstaw_informacje(dane data)
     if(row!=NULL)
     {
         id_adresu = atoi(row[0]);
-        std::cout<<id_adresu<<std::endl;
     }
     else
     {
@@ -374,8 +389,8 @@ void M_Dialog_pracownik::wstaw_informacje(dane data)
     }
 
     bool powodzenie = baza->modyfikuj_rekord("INSERT INTO pracownicy(ID_Pracownika,Imie,Nazwisko,Pesel,E_mail,Nr_tel,Login,Hasło,ID_adresu_zamieszkania,Administrator) VALUES(null,'"
-                       +imie+"','"+nazwisko+"','"+data.Pesel+"','"+"','"+data.A_email+"','"+"','"+data.Nr_tel+"','"
-                       +data.Login+"',PASSWORD('"+data.Haslo+"'),"+std::to_string(id_adresu)+","+((data.Admin=="TAK")?("1"):("0"))+")");
+                                             +imie+"','"+nazwisko+"','"+data.Pesel+"','"+data.A_email+"','"+data.Nr_tel+"','"
+                                             +data.Login+"',PASSWORD('"+data.Haslo+"'),'"+std::to_string(id_adresu)+"',"+((data.Admin=="TAK")?("1"):("0"))+")");
 
     if(powodzenie==true)
     {
@@ -524,30 +539,26 @@ void M_Dialog_pracownik::zapisz_zmiany(dane data,int index)
             std::string ulica = data.Ulica_i_numer.substr(0,pozycja_cyfr-1);
             std::string digits = data.Ulica_i_numer.substr(pozycja_cyfr);
 
-            //SELECT ID_adresu_zamieszkania,COUNT(ID_adresu_zamieszkania) FROM adres_zamieszkania WHERE Ulica='Ogrodowa' AND Nr_domu='3' AND Miejscowość='Bochnia'
-
-            std::string adres = "SELECT ID_adresu_zamieszkania FROM adres_zamieszkania WHERE Ulica='"+ulica+"' AND Nr_Domu='"+digits+"' AND Miejscowość='"+data.Miasta_zamieszkania+"'";
-            MYSQL_RES* result = baza->wyslij_zapytanie(adres);
-            MYSQL_ROW row = mysql_fetch_row(result);
-            mysql_free_result(result);
-            int id_adresu;
-
-            if(row!=NULL)
+            if(sprawdzenie_istnienia_adresu(data.Miasta_zamieszkania,ulica,digits)==1)
             {
-                data.id_adresu_zamieszkania = atoi(row[0]);
+                baza->wyslij_zapytanie("UPDATE adres_zamieszkania SET Kod_Pocztowy='"+data.Kod_pocztowy+"',Miejscowość='"+data.Miasta_zamieszkania
+                                  +"',Nr_Domu='"+digits+"',Ulica='"+ulica+"' WHERE ID_adresu_zamieszkania="+std::to_string(data.id_adresu_zamieszkania));
             }
             else
             {
+                MYSQL_RES *result;
+                baza->wyslij_zapytanie("INSERT INTO adres_zamieszkania (ID_adresu_zamieszkania,Ulica,Nr_Domu,Kod_Pocztowy,Miejscowość) VALUES(null,'"
+                                        +ulica+"',"+digits+",'"+data.Kod_pocztowy+"','"+data.Miasta_zamieszkania+"')");
+                result = baza->wyslij_zapytanie("SELECT ID_adresu_zamieszkania FROM adres_zamieszkania WHERE Ulica='"
+                                                +ulica+"' AND Nr_Domu="+digits+" AND Kod_Pocztowy='"+data.Kod_pocztowy+"' AND Miejscowość='"+data.Miasta_zamieszkania+"'");
+                MYSQL_ROW row = mysql_fetch_row(result);
+                mysql_free_result(result);
+                data.id_adresu_zamieszkania = atoi(row[0]);
 
             }
-
-            baza->wyslij_zapytanie("UPDATE adres_zamieszkania SET Kod_Pocztowy='"+data.Kod_pocztowy+"',Miejscowość='"+data.Miasta_zamieszkania
-                                  +"',Nr_Domu='"+digits+"',Ulica='"+ulica+"' WHERE ID_adresu_zamieszkania="+std::to_string(data.id_adresu_zamieszkania));
-
             bool powodzenie = baza->modyfikuj_rekord("UPDATE pracownicy SET Imie='"+imie+"',Nazwisko='"+nazwisko+"',Pesel='"+data.Pesel
                                                      +"',E_mail='"+data.A_email+"',Nr_tel='"+data.Nr_tel+"',ID_adresu_zamieszkania='"+std::to_string(data.id_adresu_zamieszkania)+
                                                      "',Administrator='"+((data.Admin=="TAK")?("1"):("0"))+"' WHERE ID_Pracownika="+std::to_string(index));
-
             if(powodzenie==true)
             {
                 result_message = gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_OTHER, GTK_BUTTONS_OK, "Udało sie wprowadzić zmiany");
@@ -575,15 +586,78 @@ void M_Dialog_pracownik::zapisz_zmiany(dane data,int index)
     }
     gtk_widget_destroy(question_message);
 }
-
-void M_Dialog_pracownik::zabawa_z_adresem(std::string miasto,std::string ulica,std::string nr_domu)
+/*********************************************************************************************************
+*
+* \brief function deals with adres issues
+* \param string miasto - name of city,ulica - name of street, nr_domu - home number on the street
+* \brief checks if any employee or client has specific id_adres
+* \return number of appearence in database of special id_adres
+*
+**********************************************************************************************************/
+int M_Dialog_pracownik::sprawdzenie_istnienia_adresu(std::string miasto,std::string ulica,std::string nr_domu)
 {
-    int id_adresu;
-    int ilosc_powtorzen;
+    int id_adresu=0;
+    int ilosc_powtorzen=0;
     std::string pracownicy = "SELECT pracownicy.ID_adresu_zamieszkania,COUNT(pracownicy.ID_adresu_zamieszkania) FROM pracownicy INNER JOIN adres_zamieszkania ON pracownicy.ID_adresu_zamieszkania=adres_zamieszkania.ID_adresu_zamieszkania WHERE Ulica='"
                              +ulica+"' AND Nr_domu='"+nr_domu+"' AND Miejscowość='"+miasto+"'";
     MYSQL_RES* result = baza->wyslij_zapytanie(pracownicy);
     MYSQL_ROW row = mysql_fetch_row(result);
     mysql_free_result(result);
-    id_adresu=
+    id_adresu=atoi(row[0]);
+    ilosc_powtorzen+=atoi(row[1]);
+    std::string klienci =   "SELECT klienci.ID_adresu_zamieszkania,COUNT(klienci.ID_adresu_zamieszkania) FROM klienci INNER JOIN adres_zamieszkania ON klienci.ID_adresu_zamieszkania=adres_zamieszkania.ID_adresu_zamieszkania WHERE Ulica='"
+                            +ulica+"' AND Miejscowość='"+miasto+"' AND Nr_Domu='"+nr_domu+"'";
+    result = baza->wyslij_zapytanie(klienci);
+    row = mysql_fetch_row(result);
+    mysql_free_result(result);
+    ilosc_powtorzen+=atoi(row[1]);
+
+    return ilosc_powtorzen;
+}
+/*********************************************************************************************************
+*
+* \brief main window and event handling of delete employee message window
+* \return void
+*
+**********************************************************************************************************/
+void M_Dialog_pracownik::usun_pracownika(int index)
+{
+        switch(gtk_dialog_run(GTK_DIALOG(message)))
+        {
+            case GTK_RESPONSE_OK:
+                {
+                    usun_dane(index);
+                    break;
+                }
+            case GTK_RESPONSE_NO:
+                {
+                    break;
+                }
+        }
+    gtk_widget_destroy(message);
+}
+/*********************************************************************************************************
+*
+* \brief function delete info about employee from database
+* \param index - employee ID number
+* \brief if there is only 1 person with special id_adress then delete this adres too from database
+* \return void
+*
+**********************************************************************************************************/
+void M_Dialog_pracownik::usun_dane(int index)
+{
+    MYSQL_RES *result = baza->wyslij_zapytanie("SELECT a.Ulica,a.Nr_domu,a.Miejscowość,a.ID_adresu_zamieszkania FROM pracownicy p INNER JOIN adres_zamieszkania a ON p.ID_adresu_zamieszkania=a.ID_adresu_zamieszkania WHERE p.ID_Pracownika='"+std::to_string(index)+"'");
+    MYSQL_ROW row = mysql_fetch_row(result);
+    mysql_free_result(result);
+    std::string ulica=row[0];
+    std::string Nr_domu=row[1];
+    std::string miejscowosc=row[2];
+    int id_ad=atoi(row[3]);
+
+    if(sprawdzenie_istnienia_adresu(miejscowosc,ulica,Nr_domu)==1)
+    {
+        std::cout<<id_ad<<std::endl;
+        baza->wyslij_zapytanie("DELETE FROM adres_zamieszkania WHERE ID_adresu_zamieszkania="+std::to_string(id_ad)+";");
+    }
+    baza->wyslij_zapytanie("DELETE FROM pracownicy WHERE ID_Pracownika='"+std::to_string(index)+"'");
 }

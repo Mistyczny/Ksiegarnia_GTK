@@ -43,6 +43,7 @@
 		</Compiler>
 		<Unit filename="include/Baza_danych.h" />
 		<Unit filename="include/C_Zakladka_Employee.h" />
+		<Unit filename="include/C_Zakladka_Zamowienia.h" />
 		<Unit filename="include/Errors.h" />
 		<Unit filename="include/Informacje_o_Zamowieniu.h" />
 		<Unit filename="include/Ksiazka.h" />
@@ -51,6 +52,7 @@
 		<Unit filename="include/Payment_application.h" />
 		<Unit filename="include/Shop.h" />
 		<Unit filename="include/Strona_zamowien.h" />
+		<Unit filename="include/Terminarz.h" />
 		<Unit filename="include/User.h" />
 		<Unit filename="include/Utilities.h" />
 		<Unit filename="include/define.h" />
@@ -60,12 +62,14 @@
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Baza_danych.cpp" />
 		<Unit filename="src/C_Zakladka_Employee.cpp" />
+		<Unit filename="src/C_Zakladka_Zamowienia.cpp" />
 		<Unit filename="src/Ksiazka.cpp" />
 		<Unit filename="src/LoginWindow.cpp" />
 		<Unit filename="src/M_Dialog_pracownik.cpp" />
 		<Unit filename="src/Payment_application.cpp" />
 		<Unit filename="src/Shop.cpp" />
 		<Unit filename="src/Strona_zamowien.cpp" />
+		<Unit filename="src/Terminarz.cpp" />
 		<Unit filename="src/User.cpp" />
 		<Unit filename="src/koszyk.cpp" />
 		<Extensions>

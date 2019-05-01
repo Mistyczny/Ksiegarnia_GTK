@@ -8,6 +8,7 @@
 #include <map>
 #include <thread>
 #include "Payment_application.h"
+#include <memory>
 
 class Koszyk
 {
@@ -29,7 +30,9 @@ private:
     GtkWidget *Btn_zaplac,*Btn_usun;
 
 public:
+    std::unique_ptr<Koszyk> Koszyk_init();
     Koszyk(GtkWidget*,GtkWidget*,GtkWidget*);
+    ~Koszyk();
 
     static void add_book_to_purchases(GtkWidget *target, gpointer arguments);
     static void delete_book_from_purchases(GtkWidget *target,gpointer arguments);
@@ -38,8 +41,6 @@ public:
     int do_zaplaty;
     std::string add_money(int i);
     std::string remove_money(int i);
-
-    ~Koszyk();
 };
 
 #endif // KOSZYK_H

@@ -79,10 +79,12 @@ void LoginWindow::login(GtkWidget *target, gpointer arguments)
     std::string login = static_cast<std::string>(gtk_entry_get_text(GTK_ENTRY(temp->textBox1)));
     std::string password = static_cast<std::string>(gtk_entry_get_text(GTK_ENTRY(temp->textBox2)));
 
-    std::string sentence = "SELECT * FROM pracownicy WHERE Login = '"+login+"' AND Hasło = PASSWORD('"+password+"')";
+    std::string sentence
+    make_sentence<< "SELECT * FROM pracownicy WHERE Login = '" << login <<"' AND Hasło = PASSWORD('" << password << "')";
 
+    std::string check = make_sentence.str();
     Baza_danych baza;
-    MYSQL_RES* result = baza.wyslij_pytanie(sentence);
+    MYSQL_RES* result = baza.wyslij_zapytanie(check);
     MYSQL_ROW row;
     row = mysql_fetch_row(result);
     mysql_free_result(result);
