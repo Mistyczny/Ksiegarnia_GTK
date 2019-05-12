@@ -1,6 +1,6 @@
 #include "LoginWindow.h"
 
-LoginWindow::LoginWindow(boost::shared_ptr<User> &target)
+LoginWindow::LoginWindow(std::shared_ptr<User> &target)
 {
     uzytkownik = target;
 }

@@ -69,6 +69,7 @@ void C_Zakladka_Zamowienia::build()
     magazyn_do_zamowien = gtk_list_store_new(ILOSC_KOLUMN_PACZEK,G_TYPE_INT,G_TYPE_STRING, G_TYPE_STRING,G_TYPE_INT,G_TYPE_STRING,G_TYPE_BOOLEAN, G_TYPE_INT);
     gtk_tree_view_set_model(GTK_TREE_VIEW(tabela_pokazujaca_zamowienia), GTK_TREE_MODEL(magazyn_do_zamowien));
     gtk_tree_view_set_headers_clickable(GTK_TREE_VIEW(tabela_pokazujaca_zamowienia),TRUE);
+    selekcja_zamowienia = gtk_tree_view_get_selection(GTK_TREE_VIEW(tabela_pokazujaca_zamowienia));
 
     gtk_container_add(GTK_CONTAINER(Scr_box_zamowienia),tabela_pokazujaca_zamowienia);
 
@@ -82,12 +83,24 @@ void C_Zakladka_Zamowienia::build()
         gtk_tree_view_append_column( GTK_TREE_VIEW( tabela_pokazujaca_zamowienia ), kolumna );
     }
     this->zaladuj_zamowienia();
+
+    Btn_szukaj = gtk_button_new();
+    gtk_button_set_label(GTK_BUTTON(Btn_szukaj),"Look for");
+    g_signal_connect(Btn_szukaj, "clicked",G_CALLBACK(&C_Zakladka_Zamowienia::szukaj_zamowienia), this);
+    g_object_ref(G_OBJECT(Btn_szukaj));
+
+    E_szukaj = gtk_entry_new();
+    gtk_entry_set_text(GTK_ENTRY(E_szukaj),"Searching");
+    gtk_entry_set_width_chars(GTK_ENTRY(E_szukaj),1);
+    g_object_ref(G_OBJECT(E_szukaj));
 }
 
 void C_Zakladka_Zamowienia::pokaz_widzety()
 {
     gtk_table_attach_defaults(GTK_TABLE(box_glowny),GTK_WIDGET(Scr_box_zamowienia),3,7,3,9);
     gtk_table_attach_defaults(GTK_TABLE(box_glowny),GTK_WIDGET(VBox_wybieranie_sposobu_sortowania_zamowien),3, 4, 2, 3);
+    gtk_table_attach_defaults(GTK_TABLE(box_glowny),GTK_WIDGET(Btn_szukaj), 5, 7, 2, 3);
+    gtk_table_attach_defaults(GTK_TABLE(box_glowny),GTK_WIDGET(E_szukaj), 4, 5, 2, 3);
 
 }
 
@@ -95,6 +108,8 @@ void C_Zakladka_Zamowienia::schowaj_widzety()
 {
     gtk_container_remove(GTK_CONTAINER(box_glowny),Scr_box_zamowienia);
     gtk_container_remove(GTK_CONTAINER(box_glowny),VBox_wybieranie_sposobu_sortowania_zamowien);
+    gtk_container_remove(GTK_CONTAINER(box_glowny),Btn_szukaj);
+    gtk_container_remove(GTK_CONTAINER(box_glowny),E_szukaj);
 }
 
 void C_Zakladka_Zamowienia::sortowanie_zamowien(GtkWidget* target,gpointer arguments)
@@ -141,6 +156,7 @@ void C_Zakladka_Zamowienia::sortowanie_zamowien(GtkWidget* target,gpointer argum
         gtk_list_store_append(temp->magazyn_do_zamowien,&iter);
         gtk_list_store_set(temp->magazyn_do_zamowien, &iter,ID_PACZKI,(gint) atoi(row[0]),IMIE_ODBIORCY,row[1],NAZWISKO_ODBIORCY,row[2],
         CENA_PACZKI,(gint) atoi(row[3]), DATA,zmienna,ODEBRANA,(gboolean) atoi(row[5]), - 1 );
+        delete zmienna;
     }
     mysql_free_result(result);
 }
@@ -201,5 +217,35 @@ void C_Zakladka_Zamowienia::zaladuj_zamowienia()
         gtk_list_store_append(magazyn_do_zamowien,&iter);
         gtk_list_store_set(magazyn_do_zamowien, &iter,ID_PACZKI,(gint) atoi(row[0]),IMIE_ODBIORCY,row[1],NAZWISKO_ODBIORCY,row[2],
         CENA_PACZKI,(gint) atoi(row[3]), DATA,zmienna,ODEBRANA,(gboolean) atoi(row[5]), - 1 );
+        delete zmienna;
     }
+    mysql_free_result(result);
+}
+
+void C_Zakladka_Zamowienia::szukaj_zamowienia(GtkWidget* target, gpointer arguments)
+{
+    C_Zakladka_Zamowienia* temp = static_cast<C_Zakladka_Zamowienia*>(arguments);
+
+    Baza_danych baza;
+    std::string zapytanie = "SELECT DISTINCT zamowienia.ID_Zamówienia,klienci.Imie,klienci.Nazwisko,SUM(książka.cena*zamowienia.ilosc) OVER(PARTITION BY zamowienia.ID_Zamówienia),zamowienia.Czas_Dostawy,zamowienia.Odebrana FROM((zamowienia INNER JOIN książka ON zamowienia.ID_ksiązki=książka.ID_ksiązki) INNER JOIN klienci ON zamowienia.ID_Klienta=klienci.ID_Klienta) WHERE klienci.Imie LIKE '%"
+    +((std::string)gtk_entry_get_text(GTK_ENTRY(temp->E_szukaj)))+"%' OR klienci.Nazwisko LIKE '%"+((std::string)gtk_entry_get_text(GTK_ENTRY(temp->E_szukaj)))+"%';";
+    MYSQL_RES *result = baza.wyslij_pytanie(zapytanie);
+    MYSQL_ROW row;
+    GtkTreeIter iter;
+    gtk_list_store_clear(temp->magazyn_do_zamowien);
+
+    while((row = mysql_fetch_row(result)) != NULL)
+    {
+        char* zmienna = row[4];
+        gtk_list_store_append(temp->magazyn_do_zamowien,&iter);
+        gtk_list_store_set(temp->magazyn_do_zamowien, &iter,ID_PACZKI,(gint) atoi(row[0]),IMIE_ODBIORCY,row[1],NAZWISKO_ODBIORCY,row[2],
+        CENA_PACZKI,(gint) atoi(row[3]), DATA,zmienna,ODEBRANA,(gboolean) atoi(row[5]), - 1 );
+        delete zmienna;
+    }
+    mysql_free_result(result);
+}
+
+GtkTreeSelection* C_Zakladka_Zamowienia::get_selekcja_zamowienia()
+{
+    return this->selekcja_zamowienia;
 }

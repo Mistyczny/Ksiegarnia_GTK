@@ -1,5 +1,4 @@
 #include "C_Zakladka_Employee.h"
-#include "Shop.h"
 #include "Baza_danych.h"
 
 enum magazyn_prac
@@ -104,8 +103,6 @@ void C_Zakladka_Employee::build()
         gtk_cell_renderer_set_alignment(komorka,0.5,0.5);
         kolumna = gtk_tree_view_column_new_with_attributes( nazwy_kol_magazynu[i], komorka, "text", i, NULL );
         gtk_tree_view_append_column( GTK_TREE_VIEW( tabela_pracownikow ), kolumna );
-        delete komorka;
-        delete kolumna;
     }
 
     scr_tabela_godzin = gtk_scrolled_window_new(NULL, NULL);

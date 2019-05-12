@@ -27,14 +27,14 @@ protected:
     GtkWidget *button;
     GtkWidget *errors;
 private:
-    boost::shared_ptr<User> uzytkownik;
+    std::shared_ptr<User> uzytkownik;
 public:
     void init(int,char**) const;
     void build();
     void run();
     static void login(GtkWidget *, gpointer);
 
-    LoginWindow(boost::shared_ptr<User>&);
+    LoginWindow(std::shared_ptr<User>&);
     virtual ~LoginWindow();
 };
 

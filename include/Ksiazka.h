@@ -26,7 +26,7 @@ public:
     const std::string get_okladkaKsiazki();
 
     Ksiazka();
-    Ksiazka(int,std::string,std::string,int,std::string);
+    Ksiazka(int,const std::string&,const std::string&,int,const std::string&);
     virtual ~Ksiazka();
 
     operator==(const Ksiazka &q)

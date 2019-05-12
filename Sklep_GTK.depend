@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1556733751 source:e:\projekty\sklep_gtk\main.cpp
+1557420170 source:e:\projekty\sklep_gtk\main.cpp
 	<iostream>
 	<gtk/gtk.h>
 	"LoginWindow.h"
@@ -7,7 +7,7 @@
 	<memory>
 	<boost/shared_ptr.hpp>
 
-1554576647 e:\projekty\sklep_gtk\include\loginwindow.h
+1557420192 e:\projekty\sklep_gtk\include\loginwindow.h
 	<iostream>
 	<gtk/gtk.h>
 	<windows.h>
@@ -24,7 +24,7 @@
 	"errors.h"
 	"Baza_danych.h"
 
-1556625119 source:e:\projekty\sklep_gtk\src\loginwindow.cpp
+1557420208 source:e:\projekty\sklep_gtk\src\loginwindow.cpp
 	"LoginWindow.h"
 
 1554890011 e:\projekty\sklep_gtk\include\user.h
@@ -56,7 +56,7 @@
 1550405514 source:e:\projekty\sklep_gtk\src\application.cpp
 	"Application.h"
 
-1556735282 e:\projekty\sklep_gtk\include\shop.h
+1557679353 e:\projekty\sklep_gtk\include\shop.h
 	<iostream>
 	<gtk/gtk.h>
 	<string>
@@ -73,8 +73,10 @@
 	"Payment_application.h"
 	"C_Zakladka_Employee.h"
 	"C_Zakladka_Zamowienia.h"
+	"C_Zakladka_Ksiegarnia.h"
+	"C_Obsluga_uzytkownika.h"
 
-1556735257 source:e:\projekty\sklep_gtk\src\shop.cpp
+1557420160 source:e:\projekty\sklep_gtk\src\shop.cpp
 	"Shop.h"
 	"define.h"
 
@@ -82,7 +84,7 @@
 
 1550776695 e:\projekty\sklep_gtk\include\define_login_window.h
 
-1556732531 e:\projekty\sklep_gtk\include\koszyk.h
+1557255694 e:\projekty\sklep_gtk\include\koszyk.h
 	<iostream>
 	<vector>
 	<gtk/gtk.h>
@@ -93,30 +95,30 @@
 	"Payment_application.h"
 	<memory>
 
-1554279927 source:e:\projekty\sklep_gtk\src\koszyk.cpp
+1557256530 source:e:\projekty\sklep_gtk\src\koszyk.cpp
 	"koszyk.h"
 	"define_koszyk.h"
 	"Shop.h"
 
 1553782255 e:\projekty\sklep_gtk\include\define_koszyk.h
 
-1552426323 source:e:\projekty\sklep_gtk\src\ksiazka.cpp
+1557253378 source:e:\projekty\sklep_gtk\src\ksiazka.cpp
 	"Ksiazka.h"
 	"Shop.h"
 
-1552426269 e:\projekty\sklep_gtk\include\ksiazka.h
+1557253308 e:\projekty\sklep_gtk\include\ksiazka.h
 	<iostream>
 	<gtk/gtk.h>
 
 1551350190 e:\projekty\sklep_gtk\include\errors.h
 
-1551905259 e:\projekty\sklep_gtk\include\payment_application.h
+1557257306 e:\projekty\sklep_gtk\include\payment_application.h
 	<iostream>
 	"gtk/gtk.h"
 	"Ksiazka.h"
 	<map>
 
-1551915755 source:e:\projekty\sklep_gtk\src\payment_application.cpp
+1557257396 source:e:\projekty\sklep_gtk\src\payment_application.cpp
 	"Payment_application.h"
 
 1554234101 e:\projekty\sklep_gtk\include\informacje_o_zamowieniu.h
@@ -129,16 +131,16 @@
 
 1554231210 e:\projekty\sklep_gtk\include\strona_zamowien.h
 
-1556734239 e:\projekty\sklep_gtk\include\c_zakladka_employee.h
+1556735946 e:\projekty\sklep_gtk\include\c_zakladka_employee.h
 	"gtk/gtk.h"
 	"User.h"
 	"M_Dialog_pracownik.h"
 	"Terminarz.h"
 	<memory>
+	<boost/noncopyable.hpp>
 
-1556734233 source:e:\projekty\sklep_gtk\src\c_zakladka_employee.cpp
+1556801136 source:e:\projekty\sklep_gtk\src\c_zakladka_employee.cpp
 	"C_Zakladka_Employee.h"
-	"Shop.h"
 	"Baza_danych.h"
 
 1556711027 e:\projekty\sklep_gtk\include\baza_danych.h
@@ -162,20 +164,41 @@
 1556735036 source:e:\projekty\sklep_gtk\src\terminarz.cpp
 	"Terminarz.h"
 
-1556735344 e:\projekty\sklep_gtk\include\terminarz.h
+1556735622 e:\projekty\sklep_gtk\include\terminarz.h
 	<iostream>
 	"Baza_danych.h"
 	<gtk/gtk.h>
 	<regex>
 	<initializer_list>
+	<boost/noncopyable.hpp>
 
-1556732407 source:e:\projekty\sklep_gtk\src\c_zakladka_zamowienia.cpp
+1557252821 source:e:\projekty\sklep_gtk\src\c_zakladka_zamowienia.cpp
 	"C_Zakladka_Zamowienia.h"
 	"Informacje_o_Zamowieniu.h"
 
-1556731004 e:\projekty\sklep_gtk\include\c_zakladka_zamowienia.h
+1557252726 e:\projekty\sklep_gtk\include\c_zakladka_zamowienia.h
 	<iostream>
 	<memory>
 	<gtk/gtk.h>
 	<Baza_danych.h>
+	<boost/noncopyable.hpp>
+
+1557252777 source:e:\projekty\sklep_gtk\src\c_zakladka_ksiegarnia.cpp
+	"C_Zakladka_Ksiegarnia.h"
+
+1557252691 e:\projekty\sklep_gtk\include\c_zakladka_ksiegarnia.h
+	<memory>
+	<iostream>
+	<Baza_danych.h>
+	<boost/noncopyable.hpp>
+	<gtk/gtk.h>
+
+1557428127 source:e:\projekty\sklep_gtk\src\c_obsluga_uzytkownika.cpp
+	"C_Obsluga_uzytkownika.h"
+
+1557679137 e:\projekty\sklep_gtk\include\c_obsluga_uzytkownika.h
+	<iostream>
+	<gtk/gtk.h>
+	"User.h"
+	<memory>
 

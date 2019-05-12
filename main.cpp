@@ -11,7 +11,7 @@ int main(int argc,char *argv[])
     bool loop = true;
     //while(loop)
    // {
-        boost::shared_ptr<User> uzytkownik(new User());
+        std::shared_ptr<User> uzytkownik(new User());
 
         LoginWindow okno_logowania(uzytkownik);
         okno_logowania.init(argc,argv);

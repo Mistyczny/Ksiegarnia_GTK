@@ -5,8 +5,9 @@
 #include <gtk/gtk.h>
 #include <regex>
 #include <initializer_list>
+#include <boost/noncopyable.hpp>
 
-class Terminarz
+class Terminarz : public boost::noncopyable
 {
 private:
     Terminarz(GtkWidget*);

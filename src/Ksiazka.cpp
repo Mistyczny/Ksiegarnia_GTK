@@ -6,12 +6,12 @@ Ksiazka::Ksiazka()
 
 }
 
-Ksiazka::Ksiazka(int id_,std::string nazwa_,std::string autor_,int cena_,std::string okl) :
-                                                                            idKsiazki(id_),
-                                                                            nazwa(nazwa_),
-                                                                            autor(autor_),
-                                                                            cena(cena_),
-                                                                            okladka(okl)
+Ksiazka::Ksiazka(int id_,const std::string& nazwa_,const std::string& autor_,int cena_,const std::string& okl) :
+                                                                                                idKsiazki(id_),
+                                                                                                nazwa(nazwa_),
+                                                                                                autor(autor_),
+                                                                                                cena(cena_),
+                                                                                                okladka(okl)
 {
 
 }
