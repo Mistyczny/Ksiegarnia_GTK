@@ -1,0 +1,21 @@
+#ifndef FORMULARZ_ZMIANY_HASLA_H
+#define FORMULARZ_ZMIANY_HASLA_H
+
+
+class Formularz_zmiany_hasla
+{
+    private:
+        GtkWidget* L_stare_haslo;
+        GtkWidget* L_nowe_haslo;
+        GtkWidget* L_powtorz_haslo;
+
+        GtkWidget* E_stare_hasl
+        GtkWidget* E_nowe_haslo;
+        GtkWidget* E_powtorz_haslo;
+    
+    public:
+        Formularz_zmiany_hasla();
+        virtual ~Formularz_zmiany_hasla();
+};
+
+#endif // FORMULARZ_ZMIANY_HASLA_H

@@ -291,7 +291,8 @@ void C_Zakladka_Employee::wypelnianie_rozpiski(GtkWidget *target, gpointer argum
 void C_Zakladka_Employee::dodaj_nowego_pracownika(GtkWidget *target, gpointer arguments)
 {
     C_Zakladka_Employee* temp = static_cast<C_Zakladka_Employee*>(arguments);
-    M_Dialog_pracownik dialog("add");
+    M_Dialog_pracownik dialog;
+    dialog.zbuduj_pusty_formularz();
     dialog.nowy_pracownik();
     odswiez_tabele_pracownikow(temp);
 }
@@ -318,7 +319,8 @@ void C_Zakladka_Employee::modyfikuj_pracownika(GtkWidget *target, gpointer argum
     {
         int id_pracownika=0;
         gtk_tree_model_get(model, & iter,ID_PRAC,&id_pracownika,- 1);
-        M_Dialog_pracownik dialog("modify");
+        M_Dialog_pracownik dialog;
+        dialog.zbuduj_modyfikacje_pracownika();
         dialog.modyfikuj_pracownika(id_pracownika);
         odswiez_tabele_pracownikow(temp);
     }

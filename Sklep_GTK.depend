@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1557420170 source:e:\projekty\sklep_gtk\main.cpp
+1558372594 source:e:\projekty\sklep_gtk\main.cpp
 	<iostream>
 	<gtk/gtk.h>
 	"LoginWindow.h"
@@ -7,7 +7,7 @@
 	<memory>
 	<boost/shared_ptr.hpp>
 
-1557420192 e:\projekty\sklep_gtk\include\loginwindow.h
+1558373031 e:\projekty\sklep_gtk\include\loginwindow.h
 	<iostream>
 	<gtk/gtk.h>
 	<windows.h>
@@ -24,10 +24,10 @@
 	"errors.h"
 	"Baza_danych.h"
 
-1557420208 source:e:\projekty\sklep_gtk\src\loginwindow.cpp
+1558438529 source:e:\projekty\sklep_gtk\src\loginwindow.cpp
 	"LoginWindow.h"
 
-1554890011 e:\projekty\sklep_gtk\include\user.h
+1558373357 e:\projekty\sklep_gtk\include\user.h
 	<iostream>
 	<gtk/gtk.h>
 	<windows.h>
@@ -36,8 +36,9 @@
 	<boost/noncopyable.hpp>
 	"Baza_danych.h"
 	"M_Dialog_pracownik.h"
+	"InfoAboutUser.h"
 
-1556625384 source:e:\projekty\sklep_gtk\src\user.cpp
+1558373357 source:e:\projekty\sklep_gtk\src\user.cpp
 	"User.h"
 
 1550348984 e:\projekty\sklep_gtk\include\utilities.h
@@ -76,7 +77,7 @@
 	"C_Zakladka_Ksiegarnia.h"
 	"C_Obsluga_uzytkownika.h"
 
-1557420160 source:e:\projekty\sklep_gtk\src\shop.cpp
+1558369407 source:e:\projekty\sklep_gtk\src\shop.cpp
 	"Shop.h"
 	"define.h"
 
@@ -139,7 +140,7 @@
 	<memory>
 	<boost/noncopyable.hpp>
 
-1556801136 source:e:\projekty\sklep_gtk\src\c_zakladka_employee.cpp
+1557738044 source:e:\projekty\sklep_gtk\src\c_zakladka_employee.cpp
 	"C_Zakladka_Employee.h"
 	"Baza_danych.h"
 
@@ -152,13 +153,13 @@
 1556711034 source:e:\projekty\sklep_gtk\src\baza_danych.cpp
 	"Baza_danych.h"
 
-1555926757 e:\projekty\sklep_gtk\include\m_dialog_pracownik.h
+1557738570 e:\projekty\sklep_gtk\include\m_dialog_pracownik.h
 	<gtk/gtk.h>
 	<iostream>
 	<Baza_danych.h>
 	<regex>
 
-1556018588 source:e:\projekty\sklep_gtk\src\m_dialog_pracownik.cpp
+1558340386 source:e:\projekty\sklep_gtk\src\m_dialog_pracownik.cpp
 	"M_Dialog_pracownik.h"
 
 1556735036 source:e:\projekty\sklep_gtk\src\terminarz.cpp
@@ -193,12 +194,30 @@
 	<boost/noncopyable.hpp>
 	<gtk/gtk.h>
 
-1557428127 source:e:\projekty\sklep_gtk\src\c_obsluga_uzytkownika.cpp
+1558369303 source:e:\projekty\sklep_gtk\src\c_obsluga_uzytkownika.cpp
 	"C_Obsluga_uzytkownika.h"
+	"M_Dialog_pracownik.h"
 
-1557679137 e:\projekty\sklep_gtk\include\c_obsluga_uzytkownika.h
+1558340559 e:\projekty\sklep_gtk\include\c_obsluga_uzytkownika.h
 	<iostream>
 	<gtk/gtk.h>
 	"User.h"
 	<memory>
+	"Formularz_zmiany_hasla.h"
+
+1558373140 source:e:\projekty\sklep_gtk\src\formularz_zmiany_hasla.cpp
+	"Formularz_zmiany_hasla.h"
+
+1558349674 e:\projekty\sklep_gtk\include\formularz_zmiany_hasla.h
+	<memory>
+	"User.h"
+
+1558369565 source:e:\projekty\sklep_gtk\src\infoaboutuser.cpp
+	"InfoAboutUser.h"
+
+1558368721 e:\projekty\sklep_gtk\include\infoaboutuser.h
+	<memory>
+	<iostream>
+	<string>
+	<vector>
 

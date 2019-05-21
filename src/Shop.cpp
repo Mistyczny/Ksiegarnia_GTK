@@ -79,7 +79,7 @@ void Shop::build()
 *****************************************************************************/
 void Shop::build_Btn_wyboru_karty()
 {
-    if(uzytkownik->getAdministator()==true)
+    if(uzytkownik->getInformacjeOpracowniku()->getAdmin()==true)
     {
         /// przyciski dla admina
         Btn_spis_dostepnych_ksiazek = gtk_button_new();
@@ -132,13 +132,13 @@ void Shop::build_info_about_user(GtkWidget* box_,int x,int y,int xx,int yy)
     Label_nazwisko = gtk_label_new(this->uzytkownik->getSurname().c_str());
     gtk_label_set_justify(GTK_LABEL(Label_nazwisko), GTK_JUSTIFY_LEFT);
     gtk_table_attach_defaults(GTK_TABLE(box_), Label_nazwisko, x, y, xx+1, yy+1);
-
+    */
     /// sign out button
     button_wyloguj = gtk_button_new();
     gtk_button_set_label(GTK_BUTTON(button_wyloguj), "Sign out");
     gtk_table_attach_defaults(GTK_TABLE(box_), button_wyloguj, x, y, xx+2, yy+2);
     g_signal_connect(button_wyloguj, "clicked", G_CALLBACK(&Shop::log_off), this);
-
+    /*
     /// frame
     about_me_frame  = gtk_frame_new("O mnie");
     gtk_frame_set_shadow_type(GTK_FRAME(about_me_frame), GTK_SHADOW_IN);

@@ -9,14 +9,13 @@ int main(int argc,char *argv[])
 {
     setlocale(LC_ALL,"");
     bool loop = true;
-    //while(loop)
-   // {
-        std::shared_ptr<User> uzytkownik(new User());
-
+    while(loop)
+    {
+        std::shared_ptr<User> uzytkownik = User::User_init();
         LoginWindow okno_logowania(uzytkownik);
         okno_logowania.init(argc,argv);
         okno_logowania.build();
         okno_logowania.run();
-   // }
+    }
 return 0;
 }

@@ -60,12 +60,24 @@ private:
     ///dane do logowania
     GtkWidget* L_login;
     GtkWidget* L_haslo;
+    GtkWidget* L_n
 
     GtkWidget* E_login;
     GtkWidget* E_haslo;
+    
+    
 public:
     M_Dialog_pracownik(std::string);
-    ~M_Dialog_pracownik() no execl;
+    M_Dialog_pracownik();
+    M_Dialog_pracownik(int);
+    virtual ~M_Dialog_pracownik() noexcept;
+
+    ///metody budujace
+    void zbuduj_pusty_formularz();
+    void zbuduj_modyfikacje_pracownika();
+    void zbuduj_formularz_zmiany_hasla();
+
+
     std::string sprawdz_czy_dane_poprawne(dane);
     bool przetworz_dane();
     /// dodanie pracownika do bazy danych
@@ -77,10 +89,11 @@ public:
     void modyfikuj_pracownika(int index);
     bool sprawdz_dane(dane& data,int index);
     void zapisz_zmiany(dane data,int index);
-    int zabawa_z_adresem(std::string miasto,std::string ulica,std::string nr_domu);
+    int sprawdzenie_istnienia_adresu(std::string miasto,std::string ulica,std::string nr_domu);
     void usun_pracownika(int index);
+    void usun_dane(int index);
 
-    virtual ~M_Dialog_pracownik();
+    void wstaw_dane_do_formularza(dane& data);
 };
 
 #endif // M_DIALOG_PRACOWNIK_H

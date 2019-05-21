@@ -22,9 +22,9 @@ class LoginWindow : private boost::noncopyable
 protected:
     GtkWidget *window;
     GtkWidget *box;
-    GtkWidget *label1,*label2;
-    GtkWidget *textBox1,*textBox2;
-    GtkWidget *button;
+    GtkWidget *L_login,*L_haslo;
+    GtkWidget *E_login,*E_haslo;
+    GtkWidget *Btn_zaloguj;
     GtkWidget *errors;
 private:
     std::shared_ptr<User> uzytkownik;

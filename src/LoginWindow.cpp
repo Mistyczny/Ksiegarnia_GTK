@@ -31,29 +31,31 @@ void LoginWindow::build()
         gtk_container_add(GTK_CONTAINER(window), box);
 
         /// creating text labels
-        label1 = gtk_label_new("Login:");
-        gtk_label_set_justify(GTK_LABEL(label1), GTK_JUSTIFY_LEFT);
-        gtk_table_attach_defaults (GTK_TABLE(box), label1, 0, 1, 0, 1);
+        L_login = gtk_label_new(NULL);
+        gtk_label_set_markup(GTK_LABEL(L_login),"<span foreground=\"red\" font='13'>Login:</span>");
+        gtk_label_set_justify(GTK_LABEL(L_login), GTK_JUSTIFY_LEFT);
+        gtk_table_attach_defaults (GTK_TABLE(box), L_login, 0, 1, 0, 1);
 
-        label2 = gtk_label_new("Password:");
-        gtk_label_set_justify(GTK_LABEL(label2), GTK_JUSTIFY_LEFT);
-        gtk_table_attach_defaults (GTK_TABLE(box), label2, 0, 1, 1, 2);
+        L_haslo = gtk_label_new(NULL);
+        gtk_label_set_markup(GTK_LABEL(L_haslo),"<span foreground=\"red\" font='13'>Hasło:</span>");
+        gtk_label_set_justify(GTK_LABEL(L_haslo), GTK_JUSTIFY_LEFT);
+        gtk_table_attach_defaults (GTK_TABLE(box), L_haslo, 0, 1, 1, 2);
 
         /// creating text boxs
-        textBox1 = gtk_entry_new();
-        gtk_entry_set_text (GTK_ENTRY(textBox1), "kacp12345");
-        gtk_table_attach_defaults (GTK_TABLE(box), textBox1, 1, 4, 0, 1);
+        E_login = gtk_entry_new();
+        gtk_entry_set_text (GTK_ENTRY(E_login), "kacp12345");
+        gtk_table_attach_defaults (GTK_TABLE(box), E_login, 1, 4, 0, 1);
 
-        textBox2 = gtk_entry_new();
-        gtk_entry_set_invisible_char(GTK_ENTRY(textBox2) ,'*');
-        gtk_entry_set_text (GTK_ENTRY(textBox2), "kacper12");
-        gtk_entry_set_visibility(GTK_ENTRY(textBox2), FALSE);
-        gtk_table_attach_defaults (GTK_TABLE(box), textBox2, 1, 4, 1, 2);
+        E_haslo = gtk_entry_new();
+        gtk_entry_set_invisible_char(GTK_ENTRY(E_haslo) ,'*');
+        gtk_entry_set_text (GTK_ENTRY(E_haslo), "kacper12");
+        gtk_entry_set_visibility(GTK_ENTRY(E_haslo), FALSE);
+        gtk_table_attach_defaults (GTK_TABLE(box), E_haslo, 1, 4, 1, 2);
         /// creating sign in button
-        button = gtk_button_new();
-        gtk_button_set_label(GTK_BUTTON(button), "Sign in");
-        g_signal_connect(button, "clicked", G_CALLBACK(&LoginWindow::login), this);
-        gtk_table_attach_defaults (GTK_TABLE(box), button, 0, 4, 2, 3);
+        Btn_zaloguj = gtk_button_new();
+        gtk_button_set_label(GTK_BUTTON(Btn_zaloguj), "Zaloguj");
+        g_signal_connect(Btn_zaloguj, "clicked", G_CALLBACK(&LoginWindow::login), this);
+        gtk_table_attach_defaults (GTK_TABLE(box), Btn_zaloguj, 0, 4, 2, 3);
         g_signal_connect(G_OBJECT(window), "destroy", G_CALLBACK(gtk_main_quit), NULL);
     }
     catch(std::bad_alloc& al)
@@ -76,15 +78,14 @@ void LoginWindow::run()
 void LoginWindow::login(GtkWidget *target, gpointer arguments)
 {
     LoginWindow* temp = static_cast<LoginWindow*>(arguments);
-    std::string login = static_cast<std::string>(gtk_entry_get_text(GTK_ENTRY(temp->textBox1)));
-    std::string password = static_cast<std::string>(gtk_entry_get_text(GTK_ENTRY(temp->textBox2)));
+    std::string login = static_cast<std::string>(gtk_entry_get_text(GTK_ENTRY(temp->E_login)));
+    std::string password = static_cast<std::string>(gtk_entry_get_text(GTK_ENTRY(temp->E_haslo)));
 
     std::string sentence = "SELECT * FROM pracownicy WHERE Login = '"+login+"' AND Hasło = PASSWORD('"+password+"')";
 
     Baza_danych baza;
     MYSQL_RES* result = baza.wyslij_pytanie(sentence);
-    MYSQL_ROW row;
-    row = mysql_fetch_row(result);
+    MYSQL_ROW row = mysql_fetch_row(result);
     mysql_free_result(result);
 
     if(row!=NULL)

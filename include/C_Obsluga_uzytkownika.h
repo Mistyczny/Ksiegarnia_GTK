@@ -4,6 +4,7 @@
 #include <gtk/gtk.h>
 #include "User.h"
 #include <memory>
+#include "Formularz_zmiany_hasla.h"
 
 class C_Obsluga_uzytkownika
 {
@@ -13,8 +14,9 @@ class C_Obsluga_uzytkownika
         const GtkWidget* box_glowny;
         std::shared_ptr<User> uzytkownik;
 
-        GtkWidget* F_o_uzytkowniku;
+        GtkWidget* ramka_uzytkownika;
         GtkWidget* L_Nazwa_uzytkownika;
+        GtkWidget* Btn_wprowadz_zmiany;
 
         GtkCssProvider *provider;
     protected:
@@ -25,6 +27,8 @@ class C_Obsluga_uzytkownika
         void build();
         void pokaz_widzety();
         void schowaj_widzety();
+        static void zmiana_hasla(GtkWidget*,gpointer);
+        void wyloguj();
 };
 
 #endif // C_OBSLUGA_UZYTKOWNIKA_H
