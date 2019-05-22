@@ -1,35 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
-	<ActiveTarget name="Release" />
-	<File name="src\Terminarz.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+	<ActiveTarget name="Debug" />
+	<File name="src\LoginWindow.cpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="9399" topLine="215" />
-		</Cursor>
-	</File>
-	<File name="src\Formularz_zmiany_hasla.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="4421" topLine="101" />
-		</Cursor>
-	</File>
-	<File name="include\Payment_application.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="601" topLine="1" />
-		</Cursor>
-	</File>
-	<File name="include\Shop.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1175" topLine="15" />
-		</Cursor>
-	</File>
-	<File name="src\C_Obsluga_uzytkownika.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2815" topLine="44" />
-		</Cursor>
-	</File>
-	<File name="include\C_Zakladka_Ksiegarnia.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="500" topLine="6" />
+			<Cursor1 position="259" topLine="12" />
 		</Cursor>
 	</File>
 	<File name="src\M_Dialog_pracownik.cpp" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -37,34 +12,9 @@
 			<Cursor1 position="31879" topLine="653" />
 		</Cursor>
 	</File>
-	<File name="include\Terminarz.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\Baza_danych.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="762" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="include\User.h" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="573" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="src\Payment_application.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="720" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="include\define.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="688" topLine="28" />
-		</Cursor>
-	</File>
-	<File name="main.cpp" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="313" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="src\C_Zakladka_Employee.cpp" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="19759" topLine="391" />
+			<Cursor1 position="1703" topLine="40" />
 		</Cursor>
 	</File>
 	<File name="include\Informacje_o_Zamowieniu.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -72,14 +22,109 @@
 			<Cursor1 position="447" topLine="0" />
 		</Cursor>
 	</File>
+	<File name="src\Shop.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3066" topLine="66" />
+		</Cursor>
+	</File>
+	<File name="src\C_Zakladka_Zamowienia.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1121" topLine="26" />
+		</Cursor>
+	</File>
+	<File name="src\Terminarz.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="9399" topLine="215" />
+		</Cursor>
+	</File>
+	<File name="include\define.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="688" topLine="28" />
+		</Cursor>
+	</File>
+	<File name="include\User.h" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="573" topLine="0" />
+		</Cursor>
+	</File>
 	<File name="src\User.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="1281" topLine="20" />
 		</Cursor>
 	</File>
+	<File name="src\C_Obsluga_uzytkownika.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2815" topLine="44" />
+		</Cursor>
+	</File>
+	<File name="src\C_Zakladka_Employee.cpp" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="19759" topLine="391" />
+		</Cursor>
+	</File>
+	<File name="include\koszyk.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="435" topLine="6" />
+		</Cursor>
+	</File>
 	<File name="include\Baza_danych.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="21" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\C_Zakladka_Zamowienia.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="607" topLine="7" />
+		</Cursor>
+	</File>
+	<File name="src\C_Zakladka_Ksiegarnia.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="6969" topLine="276" />
+		</Cursor>
+	</File>
+	<File name="src\Formularz_zmiany_hasla.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4421" topLine="101" />
+		</Cursor>
+	</File>
+	<File name="src\InfoAboutUser.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="210" topLine="10" />
+		</Cursor>
+	</File>
+	<File name="src\Payment_application.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="720" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\C_Zakladka_Ksiegarnia.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="500" topLine="6" />
+		</Cursor>
+	</File>
+	<File name="include\LoginWindow.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="504" topLine="11" />
+		</Cursor>
+	</File>
+	<File name="include\M_Dialog_pracownik.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="169" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\Shop.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1175" topLine="15" />
+		</Cursor>
+	</File>
+	<File name="include\Terminarz.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="762" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\C_Zakladka_Employee.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1137" topLine="10" />
 		</Cursor>
 	</File>
 	<File name="src\koszyk.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
@@ -92,34 +137,14 @@
 			<Cursor1 position="182" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="src\Shop.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="main.cpp" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="3066" topLine="66" />
+			<Cursor1 position="313" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="include\C_Zakladka_Employee.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include\Payment_application.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1137" topLine="10" />
-		</Cursor>
-	</File>
-	<File name="src\C_Zakladka_Ksiegarnia.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="6969" topLine="276" />
-		</Cursor>
-	</File>
-	<File name="include\C_Zakladka_Zamowienia.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="607" topLine="7" />
-		</Cursor>
-	</File>
-	<File name="include\Formularz_zmiany_hasla.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="252" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="include\LoginWindow.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="504" topLine="11" />
+			<Cursor1 position="601" topLine="1" />
 		</Cursor>
 	</File>
 	<File name="include\InfoAboutUser.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -127,29 +152,9 @@
 			<Cursor1 position="192" topLine="3" />
 		</Cursor>
 	</File>
-	<File name="src\C_Zakladka_Zamowienia.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include\Formularz_zmiany_hasla.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1121" topLine="26" />
-		</Cursor>
-	</File>
-	<File name="include\Ksiazka.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="818" topLine="12" />
-		</Cursor>
-	</File>
-	<File name="src\InfoAboutUser.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="210" topLine="10" />
-		</Cursor>
-	</File>
-	<File name="include\M_Dialog_pracownik.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="169" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="include\koszyk.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="435" topLine="6" />
+			<Cursor1 position="252" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="src\Ksiazka.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -157,14 +162,9 @@
 			<Cursor1 position="727" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="src\Baza_danych.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include\Ksiazka.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1703" topLine="40" />
-		</Cursor>
-	</File>
-	<File name="src\LoginWindow.cpp" open="1" top="1" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="694" topLine="12" />
+			<Cursor1 position="818" topLine="12" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

@@ -1,0 +1,16 @@
+#ifndef CLOCK_H
+#define CLOCK_H
+#inclu
+
+class Clock
+{
+    public:
+        Clock();
+        virtual ~Clock();
+
+    protected:
+
+    private:
+};
+
+#endif // CLOCK_H

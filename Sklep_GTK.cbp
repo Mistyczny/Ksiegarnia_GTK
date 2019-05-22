@@ -46,6 +46,7 @@
 		<Unit filename="include/C_Zakladka_Employee.h" />
 		<Unit filename="include/C_Zakladka_Ksiegarnia.h" />
 		<Unit filename="include/C_Zakladka_Zamowienia.h" />
+		<Unit filename="include/Clock.h" />
 		<Unit filename="include/Errors.h" />
 		<Unit filename="include/Formularz_zmiany_hasla.h" />
 		<Unit filename="include/InfoAboutUser.h" />
@@ -53,6 +54,7 @@
 		<Unit filename="include/Ksiazka.h" />
 		<Unit filename="include/LoginWindow.h" />
 		<Unit filename="include/M_Dialog_pracownik.h" />
+		<Unit filename="include/Obsluga_koszyka.h" />
 		<Unit filename="include/Payment_application.h" />
 		<Unit filename="include/Shop.h" />
 		<Unit filename="include/Terminarz.h" />
@@ -67,11 +69,13 @@
 		<Unit filename="src/C_Zakladka_Employee.cpp" />
 		<Unit filename="src/C_Zakladka_Ksiegarnia.cpp" />
 		<Unit filename="src/C_Zakladka_Zamowienia.cpp" />
+		<Unit filename="src/Clock.cpp" />
 		<Unit filename="src/Formularz_zmiany_hasla.cpp" />
 		<Unit filename="src/InfoAboutUser.cpp" />
 		<Unit filename="src/Ksiazka.cpp" />
 		<Unit filename="src/LoginWindow.cpp" />
 		<Unit filename="src/M_Dialog_pracownik.cpp" />
+		<Unit filename="src/Obsluga_koszyka.cpp" />
 		<Unit filename="src/Payment_application.cpp" />
 		<Unit filename="src/Shop.cpp" />
 		<Unit filename="src/Terminarz.cpp" />

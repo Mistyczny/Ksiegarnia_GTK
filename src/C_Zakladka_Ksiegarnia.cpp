@@ -53,6 +53,7 @@ C_Zakladka_Ksiegarnia::~C_Zakladka_Ksiegarnia()
 
 void C_Zakladka_Ksiegarnia::build()
 {
+
     Scr_box_informacje_o_ksiazce = gtk_scrolled_window_new(NULL, NULL);
     g_object_ref(G_OBJECT(Scr_box_informacje_o_ksiazce));
 

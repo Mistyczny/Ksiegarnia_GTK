@@ -49,6 +49,7 @@ Koszyk::Koszyk(GtkWidget *window_,GtkWidget *box_,GtkWidget* pay_app) :     okno
         kolumna = gtk_tree_view_column_new_with_attributes( nazwy_kolumn_koszyk[ i ], komorka, "text", i, NULL );
         gtk_tree_view_append_column( GTK_TREE_VIEW( tabela_pokazujaca_zakupy ), kolumna );
     }
+
     Btn_dodaj = gtk_button_new();
     gtk_button_set_label(GTK_BUTTON(Btn_dodaj),"Dodaj do koszyka");
     g_object_ref(G_OBJECT(Btn_dodaj));
@@ -229,7 +230,6 @@ void Koszyk::zaplac(GtkWidget *target,gpointer arguments)
     Koszyk* temp = static_cast<Koszyk*>(arguments);
     Payment_application okno(temp->zbior);
     okno.run();
-    //payment = new Payment_application(payment_window);
 }
 
 std::string Koszyk::add_money(int i)

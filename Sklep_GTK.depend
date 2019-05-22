@@ -57,7 +57,7 @@
 1550405514 source:e:\projekty\sklep_gtk\src\application.cpp
 	"Application.h"
 
-1557679353 e:\projekty\sklep_gtk\include\shop.h
+1558524291 e:\projekty\sklep_gtk\include\shop.h
 	<iostream>
 	<gtk/gtk.h>
 	<string>
@@ -76,6 +76,7 @@
 	"C_Zakladka_Zamowienia.h"
 	"C_Zakladka_Ksiegarnia.h"
 	"C_Obsluga_uzytkownika.h"
+	"Obsluga_koszyka.h"
 
 1558369407 source:e:\projekty\sklep_gtk\src\shop.cpp
 	"Shop.h"
@@ -96,7 +97,7 @@
 	"Payment_application.h"
 	<memory>
 
-1557256530 source:e:\projekty\sklep_gtk\src\koszyk.cpp
+1558524254 source:e:\projekty\sklep_gtk\src\koszyk.cpp
 	"koszyk.h"
 	"define_koszyk.h"
 	"Shop.h"
@@ -184,7 +185,7 @@
 	<Baza_danych.h>
 	<boost/noncopyable.hpp>
 
-1557252777 source:e:\projekty\sklep_gtk\src\c_zakladka_ksiegarnia.cpp
+1558517194 source:e:\projekty\sklep_gtk\src\c_zakladka_ksiegarnia.cpp
 	"C_Zakladka_Ksiegarnia.h"
 
 1557252691 e:\projekty\sklep_gtk\include\c_zakladka_ksiegarnia.h
@@ -194,7 +195,7 @@
 	<boost/noncopyable.hpp>
 	<gtk/gtk.h>
 
-1558369303 source:e:\projekty\sklep_gtk\src\c_obsluga_uzytkownika.cpp
+1558521425 source:e:\projekty\sklep_gtk\src\c_obsluga_uzytkownika.cpp
 	"C_Obsluga_uzytkownika.h"
 	"M_Dialog_pracownik.h"
 
@@ -220,4 +221,20 @@
 	<iostream>
 	<string>
 	<vector>
+
+1558516804 source:e:\projekty\sklep_gtk\src\clock.cpp
+	"Clock.h"
+
+1558516705 e:\projekty\sklep_gtk\include\clock.h
+	<iostream>
+	<memory>
+	<time.h>
+	<gtk/gtk.h>
+	<gdk/gdk.h>
+
+1558524574 e:\projekty\sklep_gtk\include\obsluga_koszyka.h
+	<iostream>
+	<memory>
+	<gtk/gtk.h>
+	"koszyk.h"
 

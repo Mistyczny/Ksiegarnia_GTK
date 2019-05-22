@@ -19,6 +19,7 @@
 #include "C_Zakladka_Zamowienia.h"
 #include "C_Zakladka_Ksiegarnia.h"
 #include "C_Obsluga_uzytkownika.h"
+#include "Obsluga_koszyka.h"
 
 class Shop : private boost::noncopyable
 {

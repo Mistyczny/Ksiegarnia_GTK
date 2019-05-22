@@ -60,9 +60,6 @@ void Shop::build()
         okno_uzytkownika->build();
         okno_uzytkownika->pokaz_widzety();
 
-
-
-
         g_signal_connect(G_OBJECT(koszyczek->get_Btn_dodaj()),"clicked",G_CALLBACK(&Koszyk::dodaj_do_zakupow),this);
 
         g_signal_connect(G_OBJECT(okno_programu), "destroy", G_CALLBACK(gtk_main_quit), NULL);

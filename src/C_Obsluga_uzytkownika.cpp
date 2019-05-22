@@ -25,12 +25,13 @@ C_Obsluga_uzytkownika::~C_Obsluga_uzytkownika()
 
 void C_Obsluga_uzytkownika::build()
 {
-    L_Nazwa_uzytkownika = gtk_label_new((uzytkownik->getInformacjeOpracowniku()->getImieNazwisko()).c_str());
+    L_Nazwa_uzytkownika = gtk_label_new(NULL);
     gtk_label_set_markup(GTK_LABEL(L_Nazwa_uzytkownika),("<span foreground=\"blue\" font='20'>"+
                                                          ((uzytkownik->getInformacjeOpracowniku()->getImieNazwisko()))+"</span>").c_str());
     gtk_label_set_justify(GTK_LABEL(L_Nazwa_uzytkownika), GTK_JUSTIFY_LEFT);
     g_object_ref(G_OBJECT(L_Nazwa_uzytkownika));
 
+    GtkWidget* image = gtk_image_new_from_file("./Buttons/Button_1.jpg");
     GtkWidget* L_tytulRamki = gtk_label_new(NULL);
     gtk_label_set_markup(GTK_LABEL(L_tytulRamki),"<span foreground=\"red\" font='13'>O mnie</span>");
 
@@ -41,6 +42,8 @@ void C_Obsluga_uzytkownika::build()
     g_object_ref(G_OBJECT(ramka_uzytkownika));
 
     Btn_wprowadz_zmiany = gtk_button_new();
+    gtk_button_set_always_show_image (GTK_BUTTON (Btn_wprowadz_zmiany), TRUE);
+    gtk_button_set_image (GTK_BUTTON (Btn_wprowadz_zmiany), image);
     gtk_button_set_label(GTK_BUTTON(Btn_wprowadz_zmiany), "Zmień hasło");
     g_signal_connect(Btn_wprowadz_zmiany, "clicked", G_CALLBACK(&C_Obsluga_uzytkownika::zmiana_hasla), this);
     g_object_ref(G_OBJECT(Btn_wprowadz_zmiany));
