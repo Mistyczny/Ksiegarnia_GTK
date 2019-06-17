@@ -54,14 +54,12 @@ void Shop::build()
         zakladka_ksiegarnia->pokaz_widzety();
         /// creating an instance of Koszyk which holds all books and stuffs to buy (as shared_ptr)
         koszyczek = Koszyk::Koszyk_init(okno_programu,box_glowny,okno_platnosci);
-        koszyczek->pokaz_widzety();
+        g_signal_connect(G_OBJECT(koszyczek->getInterface()->GetBtnDodaj()), "clicked", G_CALLBACK(&koszykView::TriggerNaDodaj),this);
+        g_signal_connect(G_OBJECT(koszyczek->getInterface()->GetBtnZaplac()), "clicked", G_CALLBACK(&Shop::TriggerNaZaplac),this);
 
         okno_uzytkownika = C_Obsluga_uzytkownika::C_Obsluga_uzytkownika_init(okno_programu,box_glowny,uzytkownik);
         okno_uzytkownika->build();
         okno_uzytkownika->pokaz_widzety();
-
-        g_signal_connect(G_OBJECT(koszyczek->get_Btn_dodaj()),"clicked",G_CALLBACK(&Koszyk::dodaj_do_zakupow),this);
-
         g_signal_connect(G_OBJECT(okno_programu), "destroy", G_CALLBACK(gtk_main_quit), NULL);
     }
     catch(std::bad_alloc& alloc)
@@ -121,26 +119,11 @@ void Shop::build_Btn_wyboru_karty()
 *****************************************************************************/
 void Shop::build_info_about_user(GtkWidget* box_,int x,int y,int xx,int yy)
 {
-    /// labels
-    /*Label_imie = gtk_label_new(this->uzytkownik->getName().c_str());
-    gtk_label_set_justify(GTK_LABEL(Label_imie), GTK_JUSTIFY_LEFT);
-    gtk_table_attach_defaults (GTK_TABLE(box_), Label_imie, x, y, xx, yy);
-
-    Label_nazwisko = gtk_label_new(this->uzytkownik->getSurname().c_str());
-    gtk_label_set_justify(GTK_LABEL(Label_nazwisko), GTK_JUSTIFY_LEFT);
-    gtk_table_attach_defaults(GTK_TABLE(box_), Label_nazwisko, x, y, xx+1, yy+1);
-    */
     /// sign out button
     button_wyloguj = gtk_button_new();
     gtk_button_set_label(GTK_BUTTON(button_wyloguj), "Sign out");
     gtk_table_attach_defaults(GTK_TABLE(box_), button_wyloguj, x, y, xx+2, yy+2);
     g_signal_connect(button_wyloguj, "clicked", G_CALLBACK(&Shop::log_off), this);
-    /*
-    /// frame
-    about_me_frame  = gtk_frame_new("O mnie");
-    gtk_frame_set_shadow_type(GTK_FRAME(about_me_frame), GTK_SHADOW_IN);
-    gtk_frame_set_label_align(GTK_FRAME(about_me_frame),0.5,0.5);
-    gtk_table_attach_defaults(GTK_TABLE(box_), about_me_frame, 0, 2, 0, 3);*/
 }
 /***********************************************************************************
 *
@@ -153,7 +136,7 @@ void Shop::log_off(GtkWidget *target, gpointer arguments)
     gtk_widget_destroy(temp->okno_programu);
     gtk_main_quit();
 }
-std::shared_ptr<Koszyk> Shop::get_koszyczek()
+std::unique_ptr<Koszyk>& Shop::get_koszyczek()
 {
     return koszyczek;
 }
@@ -187,7 +170,6 @@ void Shop::change_page(GtkWidget *target, gpointer arguments)
     Shop* temp = static_cast<Shop*>(arguments);
     int column = GPOINTER_TO_INT(g_object_get_data (G_OBJECT(target), "number"));
 
-
     if(column!=temp->aktualna_strona)
     {
         switch(temp->aktualna_strona)
@@ -204,8 +186,8 @@ void Shop::change_page(GtkWidget *target, gpointer arguments)
             }
             case 3:
             {
-                temp->koszyczek->pokaz_widzety();
                 temp->zakladka_employee->schowaj_widzety();
+                temp->koszyczek->getInterface()->pokaz_widzety();
                 break;
             }
         }
@@ -226,7 +208,7 @@ void Shop::change_page(GtkWidget *target, gpointer arguments)
             }
             case 3:
             {
-                temp->koszyczek->schowaj_widzety();
+                temp->koszyczek->getInterface()->schowaj_widzety();
                 temp->zakladka_employee->pokaz_widzety();
                 temp->aktualna_strona=3;
                 break;
@@ -244,4 +226,11 @@ GtkTreeSelection* Shop::get_ksiegarnia_selekcja_ksiazki()
 GtkTreeSelection* Shop::get_zamowienia_selekcja_zamowienia()
 {
     return this->zakladka_zamowienia->get_selekcja_zamowienia();
+}
+
+void Shop::TriggerNaZaplac(GtkWidget *target, gpointer arguments)
+{
+    Shop* temp = static_cast<Shop*>(arguments);
+    Payment_application aplikacja(temp->get_koszyczek()->getController()->getZbiorKsiazek(),temp->get_koszyczek()->getController()->getAmountOfMoneyToPay());
+    aplikacja.run();
 }

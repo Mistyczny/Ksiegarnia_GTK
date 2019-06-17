@@ -16,7 +16,6 @@ private:
 
     GtkWidget* VBox_wybieranie_sposobu_sortowania_zamowien;
     GtkWidget* Scr_box_zamowienia;
-
     GtkListStore* magazyn_do_zamowien;
     GtkWidget* tabela_pokazujaca_zamowienia;
     GtkTreeSelection *selekcja_zamowienia;

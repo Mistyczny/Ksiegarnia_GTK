@@ -1,5 +1,12 @@
 #include "LoginWindow.h"
 
+static void apply_css (GtkWidget *widget, GtkStyleProvider *provider)
+{
+  gtk_style_context_add_provider (gtk_widget_get_style_context (widget), provider, G_MAXUINT);
+  if (GTK_IS_CONTAINER (widget))
+    gtk_container_forall (GTK_CONTAINER (widget), (GtkCallback) apply_css, provider);
+}
+
 LoginWindow::LoginWindow(std::shared_ptr<User> &target)
 {
     uzytkownik = target;
@@ -18,6 +25,11 @@ void LoginWindow::init(int argc,char** argv) const
 void LoginWindow::build()
 {
     try{
+        GtkStyleProvider *provider;
+        GBytes *bytes;
+        gsize data_size;
+        gconstpointer data;
+
     /// Login Window settings
         window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
         gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
@@ -57,6 +69,14 @@ void LoginWindow::build()
         g_signal_connect(Btn_zaloguj, "clicked", G_CALLBACK(&LoginWindow::login), this);
         gtk_table_attach_defaults (GTK_TABLE(box), Btn_zaloguj, 0, 4, 2, 3);
         g_signal_connect(G_OBJECT(window), "destroy", G_CALLBACK(gtk_main_quit), NULL);
+
+
+        provider = GTK_STYLE_PROVIDER (gtk_css_provider_new());
+        bytes = g_resources_lookup_data ("../proba_css.css", G_RESOURCE_LOOKUP_FLAGS_NONE, NULL);
+       // data = g_bytes_get_data (bytes, &data_size);
+       // gtk_css_provider_load_from_data (GTK_CSS_PROVIDER (provider), (gchar *)data, data_size, NULL);
+        //g_bytes_unref (bytes);
+        //apply_css (window, provider);
     }
     catch(std::bad_alloc& al)
     {

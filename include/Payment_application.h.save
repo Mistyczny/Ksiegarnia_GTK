@@ -1,0 +1,24 @@
+#ifndef PAYMENT_APPLICATION_H
+#define PAYMENT_APPLICATION_H
+#include <iostream>
+#include "gtk/gtk.h"
+#include "Ksiazka.h"
+#include <map>
+#include "PaymentApplicationInterface.h"
+#include "Payment
+
+class Payment_application
+{
+    private:
+        std::map<Ksiazka*,int> zbior;
+        PaymentApplicationInterface view;
+        PaymentApplicationController kontroler;
+    public:
+        Payment_application(std::map<Ksiazka*,int>);
+        virtual ~Payment_application();
+
+        void run();
+        void wypisz_koszyk();
+};
+
+#endif // PAYMENT_APPLICATION_H

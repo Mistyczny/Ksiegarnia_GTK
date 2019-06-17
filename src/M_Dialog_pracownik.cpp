@@ -24,7 +24,6 @@ M_Dialog_pracownik::M_Dialog_pracownik(std::string scheme)
 M_Dialog_pracownik::M_Dialog_pracownik()
 {
     baza = new Baza_danych();
-    message = gtk_message_dialog_new(NULL,GTK_DIALOG_DESTROY_WITH_PARENT,GTK_MESSAGE_QUESTION,GTK_BUTTONS_OK_CANCEL,"Czy napewno chcesz usunąć tego pracownika?");
 }
 /*********************************************************************************************************
 *
@@ -35,6 +34,7 @@ M_Dialog_pracownik::M_Dialog_pracownik()
 **********************************************************************************************************/
 void M_Dialog_pracownik::zbuduj_pusty_formularz()
 {
+    message = gtk_message_dialog_new(NULL,GTK_DIALOG_DESTROY_WITH_PARENT,GTK_MESSAGE_QUESTION,GTK_BUTTONS_OK_CANCEL,"Podaj dane nowego pracownika");
     GtkWidget* content_area;
     content_area = gtk_dialog_get_content_area(GTK_DIALOG(message));
 
@@ -131,6 +131,7 @@ void M_Dialog_pracownik::zbuduj_pusty_formularz()
 **********************************************************************************************************/
 void M_Dialog_pracownik::zbuduj_modyfikacje_pracownika()
 {
+    message = gtk_message_dialog_new(NULL,GTK_DIALOG_DESTROY_WITH_PARENT,GTK_MESSAGE_QUESTION,GTK_BUTTONS_OK_CANCEL,"Czy napewno chcesz zmodyfikować pracownika?");
     GtkWidget* content_area;
     content_area = gtk_dialog_get_content_area(GTK_DIALOG(message));
 
@@ -625,6 +626,7 @@ int M_Dialog_pracownik::sprawdzenie_istnienia_adresu(std::string miasto,std::str
 **********************************************************************************************************/
 void M_Dialog_pracownik::usun_pracownika(int index)
 {
+    message = gtk_message_dialog_new(NULL,GTK_DIALOG_DESTROY_WITH_PARENT,GTK_MESSAGE_QUESTION,GTK_BUTTONS_OK_CANCEL,"Czy napewno chcesz usunąć tego pracownika?");
         switch(gtk_dialog_run(GTK_DIALOG(message)))
         {
             case GTK_RESPONSE_OK:

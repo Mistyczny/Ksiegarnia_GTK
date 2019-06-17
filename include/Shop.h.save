@@ -16,49 +16,31 @@
 #include "koszyk.h"
 #include "Payment_application.h"
 #include "C_Zakladka_Employee.h"
+#include "C_Zakladka_Zamowienia.h"
+#include "C_Zakladka_Ksiegarnia.h"
+#include "C_Obsluga_uzytkownika.h"
+#include "Obsluga_koszyka.h"
 
 class Shop : private boost::noncopyable
 {
 private:
     /// Tworzenie okna
     GtkWidget* okno_programu;
-    GtkWidget* payment_window;
+    GtkWidget* okno_platnosci;
     GtkWidget* error;
     GtkWidget* box_glowny;
-    GtkWidget* scrolled_box_for_books,*scrolled_box_for_orders;
-    GtkWidget* scrolled_box_for_info_about_books;
     GtkWidget* Btn_spis_dostepnych_ksiazek,*Btn_zamowienie,*Btn_spis_pracownikow,*Active_button; /// przyciski wyboru strony
-    GtkWidget* InfoAboutBooks;
     ///
-    Koszyk* koszyczek;
-   // C_Zakladka_Employee* zakladka_employee;
+    std::shared_ptr<Koszyk> koszyczek;
+    std::unique_ptr<C_Zakladka_Employee> zakladka_employee;
+    std::unique_ptr<C_Zakladka_Zamowienia> zakladka_zamowienia;
+    std::unique_ptr<C_Zakladka_Ksiegarnia> zakladka_ksiegarnia;
+    std::unique_ptr<C_Obsluga_uzytkownika> okno_uzytkownika;
+    std::unique_ptr<Obsluga_koszyka> 
     Payment_application* payment;
-    boost::shared_ptr<User> uzytkownik;
+    std::shared_ptr<User> uzytkownik;
 
-    /***********************************************
-    ** okno 1
-    ***********************************************/
-    /// wszystko do obslugi okna przegladania ksiazek
-    GtkWidget *Btn_add_info_about_book;
-    GtkListStore *magazyn_do_list, *magazyn_do_zamowien;
-    GtkWidget *tabela_pokazujaca_liste, *tabela_pokazujaca_zamowienia;
-    GtkTreeViewColumn *kolumna;
-    GtkCellRenderer *komorka;
-    GtkWidget *TextBoxSearching;
-    GtkWidget *Btn_searching;
-    GtkWidget *Btn_dodaj_do_koszyka;
-
-    GtkTreeSelection **zaznaczenie_elementu_listy;
-    /**
-    *   zaznaczenie_elementu_listy[0] - lista ksiazek
-    *   zaznaczenie_elementu_listy[1] - lista zamówień
-    **/
-    /// do sortowania
-    GtkWidget *sortowanie;
-    GtkWidget *okno_sortowania_zamowien;
-    GtkWidget **sposoby_sortowania;
-    GtkWidget* VBox_wybieranie_sposobu_sortowania_dostepnych_ksiazek;
-    GtkWidget* VBox_wybieranie_sposobu_sortowania_zamowien;
+    int aktualna_strona;
     /// pasek informacji osobistych oraz koszyka klienta
     GtkWidget* about_me_frame,*koszyk;  /// ramki
     GtkWidget* Label_imie,*Label_nazwisko; /// napis: imie oraz nazwisko
@@ -66,46 +48,36 @@ private:
     GtkWidget *zaplac,*usun_z_koszyka;
 
 public:
-    C_Zakladka_Employee* zakladka_employee;
-    /// sposoby przeszukiwania ksiazek
-    static void sortowanie_dostepnych_ksiazek(GtkWidget *, gpointer);
-    static void sortowanie_zamowien(GtkWidget*,gpointer);
-    static void szukanie_ksiazki(GtkWidget *, gpointer);
-
+    GtkTreeSelection* get_ksiegarnia_selekcja_ksiazki();
+    GtkTreeSelection* get_zamowienia_selekcja_zamowienia();
     /// log off
     static void log_off(GtkWidget *, gpointer);
+    int get_aktualna_strona();
 
     /// changing main window
-    static void change_to_orders(GtkWidget *target, gpointer arguments);
-    static void change_to_spis_ksiazek(GtkWidget *target, gpointer arguments);
+    static void change_page(GtkWidget *target, gpointer arguments);
     static void dodaj_ksiazke_do_koszyka(GtkWidget *target, gpointer arguments);
     /// managing shopping
 
     /// methods that builds
-    void build_order();
-    void build_casual_widgets();
+    void build_Btn_wyboru_karty();
     void build_info_about_user(GtkWidget*,int,int,int,int);
-    void build_koszyk();
-    void zbuduj_liste_ksiazek();
-    void build_menu_tool_bar();
-    void build_menu_tool_bar_for_orders();
-    void build_orders_list();
     /// elo elo
     static void set_text_to_info_label(GtkTreeView*, GtkTreePath*, GtkTreeViewColumn*, gpointer);
-    static void pobierz_informacje_o_zamowieniu(GtkTreeView * treeview, GtkTreePath * path, GtkTreeViewColumn * col, gpointer arguments);
     static void add_info_about_book(GtkWidget *target, gpointer arguments);
-    Koszyk* get_koszyczek();
+    std::shared_ptr<Koszyk> get_koszyczek();
+    std::unique_ptr<Obsluga_koszyka>& getObslugaKoszyka();
     GtkTreeSelection* get_selected(int i);
     GtkWidget* get_active_button();
     GtkWidget* get_BtnDostepnychKsiazek();
     GtkWidget* get_BtnZamowien();
-    void set_ActiveButton
+    GtkWidget* get_BtnPracownikow();
+    void set_ActiveButton(GtkWidget*);
     /// metody glowne
-    Shop(boost::shared_ptr<User>&);
+    Shop(std::shared_ptr<User>&);
     virtual ~Shop();
     void build();
     void run();
-    void usun_widzety_dostepnych_ksiazek();
 };
 
 #endif // SHOP_H

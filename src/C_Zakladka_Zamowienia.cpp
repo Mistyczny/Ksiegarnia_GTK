@@ -59,7 +59,6 @@ void C_Zakladka_Zamowienia::build()
     g_signal_connect(G_OBJECT(combo_box), "changed", G_CALLBACK(&C_Zakladka_Zamowienia::sortowanie_zamowien), this);
     g_object_ref(G_OBJECT(VBox_wybieranie_sposobu_sortowania_zamowien));
 
-
     Scr_box_zamowienia = gtk_scrolled_window_new(NULL, NULL);
     tabela_pokazujaca_zamowienia = gtk_tree_view_new();
     g_signal_connect(tabela_pokazujaca_zamowienia, "row-activated",G_CALLBACK(&C_Zakladka_Zamowienia::pobierz_informacje_o_zamowieniu), this);

@@ -1,0 +1,22 @@
+#ifndef KARTAPLATNICZA_H
+#define KARTAPLATNICZA_H
+#include "SerialPort.h"
+#include <iostream>
+
+class KartaPlatnicza
+{
+    private:
+        char *port_name;
+        std::string kodUdanejPlatnosci;
+        std::string kodNieudanejPlatnosci;
+        std::string kodUplynieciaCzasu;
+    public:
+        KartaPlatnicza();
+        virtual ~KartaPlatnicza();
+        int OpenConnection();
+        void operator()();
+        
+        void komu
+};
+
+#endif // KARTAPLATNICZA_H

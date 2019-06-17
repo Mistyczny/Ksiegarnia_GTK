@@ -19,7 +19,7 @@ public:
     void set_cenaKsiazki(const int);
     void set_okladkaKsiazki(const std::string);
 
-    const int get_idKsiazki() const ;
+    const int get_idKsiazki() const;
     const std::string get_nazwaKsiazki();
     const std::string get_autorKsiazki();
     const int get_cenaKsiazki();
@@ -38,5 +38,4 @@ public:
         else return false;
     }
 };
-
 #endif // KSIAZKA_H

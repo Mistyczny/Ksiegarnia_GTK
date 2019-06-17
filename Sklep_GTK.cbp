@@ -51,11 +51,14 @@
 		<Unit filename="include/Formularz_zmiany_hasla.h" />
 		<Unit filename="include/InfoAboutUser.h" />
 		<Unit filename="include/Informacje_o_Zamowieniu.h" />
+		<Unit filename="include/KartaPlatnicza.h" />
 		<Unit filename="include/Ksiazka.h" />
 		<Unit filename="include/LoginWindow.h" />
 		<Unit filename="include/M_Dialog_pracownik.h" />
-		<Unit filename="include/Obsluga_koszyka.h" />
+		<Unit filename="include/PaymentApplicationController.h" />
+		<Unit filename="include/PaymentApplicationInterface.h" />
 		<Unit filename="include/Payment_application.h" />
+		<Unit filename="include/SerialPort.h" />
 		<Unit filename="include/Shop.h" />
 		<Unit filename="include/Terminarz.h" />
 		<Unit filename="include/User.h" />
@@ -63,6 +66,8 @@
 		<Unit filename="include/define_koszyk.h" />
 		<Unit filename="include/define_login_window.h" />
 		<Unit filename="include/koszyk.h" />
+		<Unit filename="include/koszykController.h" />
+		<Unit filename="include/koszykView.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Baza_danych.cpp" />
 		<Unit filename="src/C_Obsluga_uzytkownika.cpp" />
@@ -72,15 +77,20 @@
 		<Unit filename="src/Clock.cpp" />
 		<Unit filename="src/Formularz_zmiany_hasla.cpp" />
 		<Unit filename="src/InfoAboutUser.cpp" />
+		<Unit filename="src/KartaPlatnicza.cpp" />
 		<Unit filename="src/Ksiazka.cpp" />
 		<Unit filename="src/LoginWindow.cpp" />
 		<Unit filename="src/M_Dialog_pracownik.cpp" />
-		<Unit filename="src/Obsluga_koszyka.cpp" />
+		<Unit filename="src/PaymentApplicationController.cpp" />
+		<Unit filename="src/PaymentApplicationInterface.cpp" />
 		<Unit filename="src/Payment_application.cpp" />
+		<Unit filename="src/SerialPort.cpp" />
 		<Unit filename="src/Shop.cpp" />
 		<Unit filename="src/Terminarz.cpp" />
 		<Unit filename="src/User.cpp" />
 		<Unit filename="src/koszyk.cpp" />
+		<Unit filename="src/koszykController.cpp" />
+		<Unit filename="src/koszykView.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

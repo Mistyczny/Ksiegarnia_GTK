@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1558372594 source:e:\projekty\sklep_gtk\main.cpp
+1558955947 source:e:\projekty\sklep_gtk\main.cpp
 	<iostream>
 	<gtk/gtk.h>
 	"LoginWindow.h"
@@ -24,7 +24,7 @@
 	"errors.h"
 	"Baza_danych.h"
 
-1558438529 source:e:\projekty\sklep_gtk\src\loginwindow.cpp
+1558958405 source:e:\projekty\sklep_gtk\src\loginwindow.cpp
 	"LoginWindow.h"
 
 1558373357 e:\projekty\sklep_gtk\include\user.h
@@ -57,7 +57,7 @@
 1550405514 source:e:\projekty\sklep_gtk\src\application.cpp
 	"Application.h"
 
-1558524291 e:\projekty\sklep_gtk\include\shop.h
+1560535241 e:\projekty\sklep_gtk\include\shop.h
 	<iostream>
 	<gtk/gtk.h>
 	<string>
@@ -76,9 +76,9 @@
 	"C_Zakladka_Zamowienia.h"
 	"C_Zakladka_Ksiegarnia.h"
 	"C_Obsluga_uzytkownika.h"
-	"Obsluga_koszyka.h"
+	"koszykView.h"
 
-1558369407 source:e:\projekty\sklep_gtk\src\shop.cpp
+1560605395 source:e:\projekty\sklep_gtk\src\shop.cpp
 	"Shop.h"
 	"define.h"
 
@@ -86,41 +86,48 @@
 
 1550776695 e:\projekty\sklep_gtk\include\define_login_window.h
 
-1557255694 e:\projekty\sklep_gtk\include\koszyk.h
+1560534879 e:\projekty\sklep_gtk\include\koszyk.h
 	<iostream>
 	<vector>
 	<gtk/gtk.h>
 	<gdk/gdk.h>
-	"Ksiazka.h"
 	<map>
 	<thread>
-	"Payment_application.h"
 	<memory>
+	"koszykView.h"
+	"koszykController.h"
 
-1558524254 source:e:\projekty\sklep_gtk\src\koszyk.cpp
+1560534874 source:e:\projekty\sklep_gtk\src\koszyk.cpp
 	"koszyk.h"
 	"define_koszyk.h"
 	"Shop.h"
 
-1553782255 e:\projekty\sklep_gtk\include\define_koszyk.h
+1560270501 e:\projekty\sklep_gtk\include\define_koszyk.h
 
 1557253378 source:e:\projekty\sklep_gtk\src\ksiazka.cpp
 	"Ksiazka.h"
 	"Shop.h"
 
-1557253308 e:\projekty\sklep_gtk\include\ksiazka.h
+1560536768 e:\projekty\sklep_gtk\include\ksiazka.h
 	<iostream>
 	<gtk/gtk.h>
 
 1551350190 e:\projekty\sklep_gtk\include\errors.h
 
-1557257306 e:\projekty\sklep_gtk\include\payment_application.h
+1560767373 e:\projekty\sklep_gtk\include\payment_application.h
 	<iostream>
 	"gtk/gtk.h"
 	"Ksiazka.h"
 	<map>
+	"PaymentApplicationInterface.h"
+	"PaymentApplicationController.h"
+	"SerialPort.h"
+	<thread>
+	<string>
+	<algorithm>
+	"KartaPlatnicza.h"
 
-1557257396 source:e:\projekty\sklep_gtk\src\payment_application.cpp
+1560777535 source:e:\projekty\sklep_gtk\src\payment_application.cpp
 	"Payment_application.h"
 
 1554234101 e:\projekty\sklep_gtk\include\informacje_o_zamowieniu.h
@@ -141,7 +148,7 @@
 	<memory>
 	<boost/noncopyable.hpp>
 
-1557738044 source:e:\projekty\sklep_gtk\src\c_zakladka_employee.cpp
+1560444544 source:e:\projekty\sklep_gtk\src\c_zakladka_employee.cpp
 	"C_Zakladka_Employee.h"
 	"Baza_danych.h"
 
@@ -160,7 +167,7 @@
 	<Baza_danych.h>
 	<regex>
 
-1558340386 source:e:\projekty\sklep_gtk\src\m_dialog_pracownik.cpp
+1560532147 source:e:\projekty\sklep_gtk\src\m_dialog_pracownik.cpp
 	"M_Dialog_pracownik.h"
 
 1556735036 source:e:\projekty\sklep_gtk\src\terminarz.cpp
@@ -174,11 +181,11 @@
 	<initializer_list>
 	<boost/noncopyable.hpp>
 
-1557252821 source:e:\projekty\sklep_gtk\src\c_zakladka_zamowienia.cpp
+1560606029 source:e:\projekty\sklep_gtk\src\c_zakladka_zamowienia.cpp
 	"C_Zakladka_Zamowienia.h"
 	"Informacje_o_Zamowieniu.h"
 
-1557252726 e:\projekty\sklep_gtk\include\c_zakladka_zamowienia.h
+1560606151 e:\projekty\sklep_gtk\include\c_zakladka_zamowienia.h
 	<iostream>
 	<memory>
 	<gtk/gtk.h>
@@ -232,9 +239,66 @@
 	<gtk/gtk.h>
 	<gdk/gdk.h>
 
-1558524574 e:\projekty\sklep_gtk\include\obsluga_koszyka.h
+1558962776 e:\projekty\sklep_gtk\include\obsluga_koszyka.h
 	<iostream>
 	<memory>
 	<gtk/gtk.h>
 	"koszyk.h"
+
+1558962862 source:e:\projekty\sklep_gtk\src\obsluga_koszyka.cpp
+	"Obsluga_koszyka.h"
+	"Shop.h"
+
+1560535329 source:e:\projekty\sklep_gtk\src\koszykview.cpp
+	"koszykView.h"
+	"Shop.h"
+
+1560535336 e:\projekty\sklep_gtk\include\koszykview.h
+	<iostream>
+	<memory>
+	<gtk/gtk.h>
+	"Ksiazka.h"
+	<map>
+
+1560355498 e:\projekty\sklep_gtk\include\koszykcontroller.h
+	<map>
+	"Ksiazka.h"
+	<iostream>
+	<memory>
+
+1560444142 source:e:\projekty\sklep_gtk\src\koszykcontroller.cpp
+	"koszykController.h"
+
+1560625098 e:\projekty\sklep_gtk\include\paymentapplicationinterface.h
+	<gtk/gtk.h>
+	<iostream>
+	<map>
+	<Ksiazka.h>
+
+1560625372 source:e:\projekty\sklep_gtk\src\paymentapplicationinterface.cpp
+	"PaymentApplicationInterface.h"
+
+1560601188 e:\projekty\sklep_gtk\include\paymentapplicationcontroller.h
+	<iostream>
+	<map>
+	<Ksiazka.h>
+
+1560605684 source:e:\projekty\sklep_gtk\src\paymentapplicationcontroller.cpp
+	"PaymentApplicationController.h"
+
+1560624199 e:\projekty\sklep_gtk\include\serialport.h
+	<windows.h>
+	<stdio.h>
+	<stdlib.h>
+
+1560627375 source:e:\projekty\sklep_gtk\src\serialport.cpp
+	"SerialPort.h"
+
+1560785377 e:\projekty\sklep_gtk\include\kartaplatnicza.h
+	"SerialPort.h"
+	<iostream>
+	"gtk/gtk.h"
+
+1560786383 source:e:\projekty\sklep_gtk\src\kartaplatnicza.cpp
+	"KartaPlatnicza.h"
 

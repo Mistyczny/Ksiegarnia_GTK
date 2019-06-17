@@ -1,10 +1,3 @@
-const gchar* nazwy_kolumn_koszyk[4] = {
-    "Id ksiazki",
-    "Nazwa ksiazki",
-    "Cena",
-    "Ilosc"
-};
-
 enum ksiazki
 {
     ID_KSIAZKI=0,

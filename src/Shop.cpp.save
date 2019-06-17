@@ -60,10 +60,7 @@ void Shop::build()
         okno_uzytkownika->build();
         okno_uzytkownika->pokaz_widzety();
 
-
-
-
-        
+        g_signal_connect(G_OBJECT(koszyczek->get_Btn_dodaj()),"clicked",G_CALLBACK(&Koszyk::dodaj_do_zakupow),this);
 
         g_signal_connect(G_OBJECT(okno_programu), "destroy", G_CALLBACK(gtk_main_quit), NULL);
     }
@@ -247,4 +244,9 @@ GtkTreeSelection* Shop::get_ksiegarnia_selekcja_ksiazki()
 GtkTreeSelection* Shop::get_zamowienia_selekcja_zamowienia()
 {
     return this->zakladka_zamowienia->get_selekcja_zamowienia();
+}
+
+std::unique_ptr<Obsluga_koszyka>& Shop::getObslugaKoszyka()
+{
+    return this->
 }

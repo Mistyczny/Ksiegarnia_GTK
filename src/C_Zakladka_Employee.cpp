@@ -190,10 +190,10 @@ void C_Zakladka_Employee::build()
 **********************************************************************************************************/
 void C_Zakladka_Employee::pokaz_widzety()
 {
-    gtk_table_attach_defaults(GTK_TABLE(box_glowny),GTK_WIDGET(scr_kontener_pracownicy),2,5,2,7);
-    gtk_table_attach_defaults(GTK_TABLE(box_glowny),GTK_WIDGET(Btn_dodaj_pracownika),2,3,7,8);
-    gtk_table_attach_defaults(GTK_TABLE(box_glowny),GTK_WIDGET(Btn_modyfikuj_pracownika),3,4,7,8);
-    gtk_table_attach_defaults(GTK_TABLE(box_glowny),GTK_WIDGET(Btn_usun_pracownika),4,5,7,8);
+    gtk_table_attach_defaults(GTK_TABLE(box_glowny),GTK_WIDGET(scr_kontener_pracownicy),3,6,2,7);
+    gtk_table_attach_defaults(GTK_TABLE(box_glowny),GTK_WIDGET(Btn_dodaj_pracownika),3,4,7,8);
+    gtk_table_attach_defaults(GTK_TABLE(box_glowny),GTK_WIDGET(Btn_modyfikuj_pracownika),4,5,7,8);
+    gtk_table_attach_defaults(GTK_TABLE(box_glowny),GTK_WIDGET(Btn_usun_pracownika),5,6,7,8);
     this->terminy->build();
 }
 /*********************************************************************************************************
